@@ -1,0 +1,19 @@
+{
+  "name": "camp-chat-react",
+  "version": "1.0.0",
+  "description": "Chat application created with React - ELEKS Front-End camp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://pashko.ostap@gitlab.com/pashko.ostap/camp-chat-react.git"
+  },
+  "author": "pashko.ostap@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/pashko.ostap/camp-chat-react/issues"
+  },
+  "homepage": "https://gitlab.com/pashko.ostap/camp-chat-react#README"
+}
