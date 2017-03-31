@@ -3,10 +3,10 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: './src/app.js'
+    app: './app.js'
   },
   devtool: 'source-map',
-  context: __dirname,
+  context: `${__dirname}/src`,
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.less']
   },
