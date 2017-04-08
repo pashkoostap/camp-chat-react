@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Comp from './components/comp';
+import Style from './style.scss';
+import AppHeader from './components/core/header';
 
-ReactDOM.render(<Comp text="text" />, document.querySelector('#div'))
+ReactDOM.render(<AppHeader />, document.getElementById('root'))

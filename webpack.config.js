@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'source-map',
   context: `${__dirname}/src`,
   resolve: {
-    extensions: ['.js', '.jsx', '.json', '.less']
+    extensions: ['.js', '.jsx', '.json', '.scss']
   },
   devServer: {
     contentBase: path.join(__dirname, 'src'),
@@ -19,8 +19,8 @@ module.exports = {
       { test: /\.jsx?$/, use: ['babel-loader'], exclude: /node_modules/ },
       { test: /\.json?$/, use: ['json-loader'], exclude: /node_modules/ },
       {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader']
       },
     ]
   },
