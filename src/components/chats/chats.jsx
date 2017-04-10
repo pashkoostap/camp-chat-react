@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Styles from './chats.scss';
 import ChatNav from './chat-nav';
 import ChatList from './chat-list';
+import ChatDetail from './chat-detail';
 
 export default class ChatsComponent extends Component {
   render() {
@@ -14,7 +15,7 @@ export default class ChatsComponent extends Component {
           </div>
 
           <div className="right-chat-wrap">
-            das
+            <ChatDetail />
           </div>
         </div>
       </div>
