@@ -1,0 +1,100 @@
+// CHAT SEND FORM
+.right-chat-form {
+    padding: 20px;
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+    align-self: flex-end;
+    // SEND FORM TEXTAREA
+    &__textarea {
+        display: flex;
+        outline: none;
+        height: 50px;
+        border-radius: 25px;
+        resize: none;
+        font-size: 14px;
+        line-height: 20px;
+        border: 1px solid transparent;
+        padding: 14px 20px;
+        background-color: #ededfa;
+        flex-grow: 1;
+        align-self: flex-end;
+        overflow: hidden;
+        transition: border-color 0.2s ease;
+        &:focus {
+            border: 1px solid #3b3e99;
+        }
+    }
+    // SEND FORM SMILES BUTTON
+    &__smiles {
+        position: absolute;
+        width: 60px;
+        height: 50px;
+        background: none;
+        border: none;
+        outline: none;
+        padding: 0;
+        color: #dcdce8;
+        font-size: 20px;
+        bottom: 20px;
+        right: 90px;
+        cursor: pointer;
+        transition: color 0.2s ease;
+        &:hover {
+            color: #9f9fa9;
+        }
+        @media (max-width: 767px) {
+            right: 60px;
+        }
+    }
+    &__submit {
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 25px;
+        cursor: pointer;
+        display: flex;
+        flex-shrink: 0;
+        align-self: flex-end;
+        justify-content: center;
+        transition: opacity 0.2s ease;
+        &[disabled] {
+            opacity: 0.3;
+        }
+    }
+    // SEND FORM DOCUMENT INPUT
+    &__document {
+        cursor: pointer;
+        height: 50px;
+        width: 40px;
+        font-size: 22px;
+        position: relative;
+        color: #ededfd;
+        margin-left: 20px;
+        transition: color 0.2s ease;
+        align-self: flex-end;
+        flex-shrink: 0;
+        &::before {
+            position: absolute;
+            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        &:hover {
+            color: #9f9fa9;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        @media (max-width: 767px) {
+            margin-left: 0px;
+        }
+    }
+}
