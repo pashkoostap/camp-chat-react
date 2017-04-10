@@ -1,0 +1,11 @@
+// RIGHT CHAT MESSAGES WRAPPER
+.right-chat-messages {
+    padding: 0px 20px;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+}
