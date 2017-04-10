@@ -16,8 +16,8 @@ export default class AppNavigation extends Component {
 
           <div className="user-profile">
             <a className="user-profile-link">
-              <span className="user-profile-link__name"></span>
-              <div className="user-profile-link__photo"></div>
+              <span className="user-profile-link__name">Ostap Pashko</span>
+              <div className="user-profile-link__photo" style={{backgroundImage: 'url(assets/img/avatar__1.jpg)'}}></div>
             </a>
             <button className="log-out  chat-icon-sign-out"></button>
           </div>
