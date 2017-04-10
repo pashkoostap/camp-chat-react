@@ -1,4 +1,4 @@
-export const CHATS = [
+const CHATS = [
   {
     id: 1,
     name: 'Chatting here',
@@ -14,3 +14,5 @@ export const CHATS = [
     createdAt: new Date(2017, 3, 10, 20, 10, 0, 0)
   }
 ];
+
+export default CHATS;

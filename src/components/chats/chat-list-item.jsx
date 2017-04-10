@@ -10,9 +10,8 @@ export default class ChatListItem extends Component {
           <span className='left-chat-user-photo__message-badge'>1</span>
         </div>
         <div className='left-chat-user-info'>
-          <span className='left-chat-user-info__name'>Chat name</span>
-          <p className='left-chat-user-info__message'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, eum sequi in. Laudantium, ipsum cupiditate possimus
-        eligendi deleniti provident sit, iste consequatur similique adipisci ipsam maxime laboriosam eos itaque quae.</p>
+          <span className='left-chat-user-info__name'>{this.props.data.name}</span>
+          <p className='left-chat-user-info__message'>Last message in chat</p>
         </div>
         <span className='left-chat-user__status'>52 m</span>
       </li>
