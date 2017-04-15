@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Styles from './login.scss';
 
 export default class AuthLogin extends Component {
   constructor(props) {
@@ -12,10 +11,28 @@ export default class AuthLogin extends Component {
   }
   render() {
     return (
-      <form>
-        <input type="text" placeholder="Username" />
-        <input type="text" placeholder="Password" />
-        <input type="submit" value="Login" onClick={this.onLogin} />
+      <form className="osp-chat-form  osp-chat-form--login">
+        <input
+          type="text"
+          name="username"
+          className="osp-chat-form__input"
+          placeholder="Username"
+          required />
+        <span className="osp-chat-form__hint">Please enter username</span>
+        <input
+          type="password"
+          name="password"
+          className="osp-chat-form__input"
+          placeholder="Password"
+          required />
+        <span className="osp-chat-form__hint">Your password must be at least 8 latin characters and digits</span>
+
+        <a href="#" className="osp-chat-form__link  osp-chat-form__link--forgot-pass">Forgot password?</a>
+
+        <input
+          type="submit"
+          className="osp-chat-form__submit  osp-chat-form__submit--login"
+          value="Login" />
       </form>
     )
   }

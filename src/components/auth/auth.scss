@@ -1,0 +1,148 @@
+// TITLE
+.auth-title {
+    font-size: 20px;
+    text-align: center;
+    margin: auto 0px 20px 0px;
+    @media (max-width: 767px) {
+        margin: 30px auto;
+        max-width: 290px;
+    }
+}
+// LOGIN FORM WRAPPER
+.osp-chat-form-wrap {
+    display: flex;
+    max-width: 400px;
+    width: 100%;
+    flex-wrap: wrap;
+    margin: auto;
+    margin-top: 0;
+    background-color: #ffffff;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    &--hidden {
+        display: none;
+    }
+    @media (max-width: 767px) {
+        max-width: 290px;
+        margin-bottom: 40px;
+    }
+}
+.osp-chat-form-group {
+    display: flex;
+    flex-direction: column;
+}
+// FORM NAVIGATION
+.osp-chat-form-nav {
+    display: flex;
+    &__btn {
+        display: flex;
+        width: 50%;
+        font-family: "Ubuntu";
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: none;
+        outline: none;
+        background-color: #3b3e99;
+        justify-content: center;
+        color: #ffffff;
+        line-height: 30px;
+        padding: 10px;
+        height: 50px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    &__btn.active {
+        background-color: #7b7da4;
+    }
+}
+
+// LOGIN CHAT FORM
+.osp-chat-form {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px 30px;
+    @media (max-width: 767px) {
+        padding: 20px;
+    }
+    // FORM INPUT
+    &__input {
+        display: flex;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 14px 20px;
+        margin-bottom: 20px;
+        background-color: #ededfa;
+        border: none;
+        border-radius: 25px;
+        outline: none;
+        font-family: "Ubuntu";
+        border: 1px solid #ededfa;
+        transition: all 0.2s ease;
+        &:focus {
+            border: 1px solid #3b3e99;
+        }
+        &.ng-invalid.ng-touched {
+            border: 1px solid #ff0000;
+        }
+        &--mb10 {
+            margin-bottom: 10px;
+        }
+    }
+    // HINT
+    &__hint {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 0px 20px;
+        position: relative;
+        top: -10px
+    }
+    // SUBMIT BUTTON
+    &__submit {
+        display: flex;
+        width: 100%;
+        font-family: "Ubuntu";
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: none;
+        outline: none;
+        background-color: #3b3e99;
+        border: 1px solid #3b3e99;
+        justify-content: center;
+        color: #ffffff;
+        line-height: 20px;
+        padding: 9px 15px;
+        cursor: pointer;
+        border-radius: 25px;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        &[disabled] {
+            background: #7b7da4;
+            border: 1px solid #7b7da4;
+            pointer-events: none;
+            &:hover {
+                background-color: #7b7da4;
+                color: #ffffff;
+            }
+        }
+        &:hover {
+            background-color: transparent;
+            color: #3b3e99;
+        }
+    }
+    // FORM LINK
+    &__link {
+        font-size: 14px;
+        line-height: 20px;
+        color: #3b3e99;
+        text-decoration: none;
+        display: flex;
+        margin-bottom: 10px;
+        padding-left: 20px;
+        transition: opacity 0.2s ease;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+}
