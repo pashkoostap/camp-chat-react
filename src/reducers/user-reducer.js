@@ -1,13 +1,13 @@
 import * as types from '../actions/action-types';
 
-const userReducerInitialState = { user: { isLogged: false } };
+const userReducerInitialState = { isLogged: false };
 
 const userReducer = (state = userReducerInitialState, action) => {
   switch (action.type) {
     case types.LOGIN_USER:
-      return { user: { isLogged: true } };
+      return { isLogged: true };
     case types.LOGOUT_USER:
-      return { user: { isLogged: false } };
+      return { isLogged: false };
     default:
       return state;
   }

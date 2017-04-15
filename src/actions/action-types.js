@@ -1,2 +1,10 @@
+// USER AUTHORIZATION
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
+
+// MESSAGES
+export const MESSAGE_NEW = 'MESSAGE_NEW';
+
+// USERS
+export const USER_JOINED = 'USER_JOINED';
+export const USER_LEAVED = 'USER_LEAVED';

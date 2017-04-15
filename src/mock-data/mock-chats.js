@@ -1,7 +1,7 @@
 const CHATS = [
   {
     id: 1,
-    name: 'Chatting here',
+    name: 'Chat room',
     attendees: [1, 2],
     creator: 1,
     createdAt: new Date(2017, 3, 10, 20, 0, 0, 0)
