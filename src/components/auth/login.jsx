@@ -11,7 +11,7 @@ export default class AuthLogin extends Component {
   }
   render() {
     return (
-      <form className="osp-chat-form  osp-chat-form--login">
+      <form className={"osp-chat-form  osp-chat-form--login " + (this.props.visible ? 'active' : 'hidden') }>
         <input
           type="text"
           name="username"

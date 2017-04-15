@@ -66,6 +66,9 @@
     @media (max-width: 767px) {
         padding: 20px;
     }
+    &.hidden {
+      display: none;
+    }
     // FORM INPUT
     &__input {
         display: flex;
