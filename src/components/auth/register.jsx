@@ -28,7 +28,7 @@ class AuthRegister extends React.Component {
           <input
             type="password"
             className="osp-chat-form__input"
-            placeholder="Password" />
+            placeholder="Confirm password" />
           <span className="osp-chat-form__hint" >The passwords are not identical</span>
         </div>
 
