@@ -52,6 +52,13 @@ ol {
     flex-direction: column;
     flex-grow: 1;
 }
+.ct-home {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 // BUTTON STYLES
 .osp-chat-nav-btn {
     background: none;

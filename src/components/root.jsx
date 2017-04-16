@@ -8,8 +8,7 @@ export default class RootComponent extends Component {
     return (
       <div className="app-wrap">
         <Header />
-        <Auth />
-        {/*<ChatsComponent />*/}
+        {this.props.children}
       </div>
     )
   }
