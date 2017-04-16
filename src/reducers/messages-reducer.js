@@ -6,7 +6,7 @@ const messagesReducerInitialState = MESSAGES;
 const messagesReducer = (state = messagesReducerInitialState, action) => {
   switch (action.type) {
     case types.MESSAGE_NEW:
-      return state;
+      return [...state, action.message];
     default:
       return state;
   }
