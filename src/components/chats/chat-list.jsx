@@ -16,7 +16,6 @@ export default class ChatList extends Component {
     })
   }
   render() {
-    console.log(CHATS);
     return (
       <ul className='left-chat-users'>
         {this.renderChatList()}

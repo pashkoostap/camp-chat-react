@@ -5,12 +5,19 @@ import ChatList from './chat-list';
 import ChatDetail from './chat-detail';
 
 export default class ChatsComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLeftPanelOpen: true
+    }
+    this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
+  }
   render() {
     return (
       <div className="ct-chats">
         <div className="osp-chat">
-          <div className="left-chat-wrap  visible">
-            <ChatNav />
+          <div className={"left-chat-wrap " + (this.state.isLeftPanelOpen ? "visible" : "hidden")}>
+            <ChatNav togglePanel={this.toggleLeftPanel} />
             <ChatList />
           </div>
 
@@ -20,5 +27,8 @@ export default class ChatsComponent extends Component {
         </div>
       </div>
     )
+  }
+  toggleLeftPanel(e) {
+    this.setState({ isLeftPanelOpen: !this.state.isLeftPanelOpen });
   }
 }

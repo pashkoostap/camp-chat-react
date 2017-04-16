@@ -9,7 +9,6 @@ class Auth extends React.Component {
 
     this.state = {
       isActiveLoginMode: true,
-      isActiveRegisterMode: false,
       lastClickedButton: 'osp-chat-form-nav__btn--login'
     };
 
@@ -24,11 +23,11 @@ class Auth extends React.Component {
           <nav className="osp-chat-form-nav">
             <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--login " + (this.state.isActiveLoginMode ? 'active' : '')}
               onClick={this.changeAuthMode}>Login</a>
-            <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--sign-in " + (this.state.isActiveRegisterMode ? 'active' : '')}
+            <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--sign-in " + (!this.state.isActiveLoginMode ? 'active' : '')}
               onClick={this.changeAuthMode}>Register</a>
           </nav>
           <AuthLogin visible={this.state.isActiveLoginMode} />
-          <AuthRegister visible={this.state.isActiveRegisterMode} />
+          <AuthRegister visible={!this.state.isActiveLoginMode} />
         </div>
       </div>
     );
@@ -39,7 +38,6 @@ class Auth extends React.Component {
     if (this.state.lastClickedButton !== lastButtonClass) {
       this.setState({
         isActiveLoginMode: !this.state.isActiveLoginMode,
-        isActiveRegisterMode: !this.state.isActiveRegisterMode,
         lastClickedButton: lastButtonClass
       })
     }

@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import Styles from './chat-nav.scss';
 
 export default class ChatNav extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.onPanelOpen = this.onPanelOpen.bind(this);
+  }
   render() {
     return (
       <nav className="left-chat-nav">
-        <button className="left-chat-nav__open  osp-chat-nav-btn  active"></button>
+        <button className="left-chat-nav__open  osp-chat-nav-btn  active" onClick={this.onPanelOpen}></button>
         <form className="chat-search-panel">
           <input
             type="text"
@@ -25,5 +30,9 @@ export default class ChatNav extends Component {
         </ul >
       </nav >
     )
+  }
+  onPanelOpen(e) {
+    e.target.classList.toggle('active');
+    this.props.togglePanel();
   }
 }
