@@ -16,6 +16,7 @@ class Auth extends React.Component {
   }
 
   render() {
+    console.log(this.props.text)
     return (
       <div className="ct-auth">
         <h3 className="auth-title">Please login or register to enter chat</h3>

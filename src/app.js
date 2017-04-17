@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory'
 
 import { Provider } from 'react-redux';
@@ -21,12 +21,6 @@ const browserHistory = createHistory();
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter history={browserHistory}>
-      <RootComponent>
-        <Switch>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/auth' component={Auth} />
-          <Route path='/chats' component={Chats} />
-        </Switch>
-      </RootComponent>
+      <RootComponent />
     </BrowserRouter>
   </Provider>, document.getElementById('root'));

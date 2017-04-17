@@ -9,7 +9,7 @@ export default class AppNavigation extends Component {
         <div className="chat-nav">
           <nav className="chat-links">
             <Link to="/">Home</Link>
-            <Link to="/chats">Chat</Link>
+            <Link to="/chat">Chat</Link>
             <Link to="/auth">Login</Link>
           </nav>
 
