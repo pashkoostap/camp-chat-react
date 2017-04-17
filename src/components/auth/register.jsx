@@ -38,6 +38,10 @@ class AuthRegister extends React.Component {
       </form>
     );
   }
+  signUp() {
+    // fetch('http://eleksfrontendcamp-mockapitron.rhcloud.com/signup', myInit)
+    //   .then(() => console.log('sign up'))
+  }
 }
 
 AuthRegister.defaultProps = {

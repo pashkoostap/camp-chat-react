@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import user from './user-reducer';
+import userInfo from './user-reducer';
 import messages from './messages-reducer';
 
 const rootReducers = combineReducers({
-  user,
+  userInfo,
   messages
 })
 

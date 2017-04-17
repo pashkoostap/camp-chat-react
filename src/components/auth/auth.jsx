@@ -16,7 +16,6 @@ class Auth extends React.Component {
   }
 
   render() {
-    console.log(this.props.text)
     return (
       <div className="ct-auth">
         <h3 className="auth-title">Please login or register to enter chat</h3>
@@ -27,7 +26,7 @@ class Auth extends React.Component {
             <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--sign-in " + (!this.state.isActiveLoginMode ? 'active' : '')}
               onClick={this.changeAuthMode}>Register</a>
           </nav>
-          <AuthLogin visible={this.state.isActiveLoginMode} />
+          <AuthLogin visible={this.state.isActiveLoginMode} login={this.props.login} />
           <AuthRegister visible={!this.state.isActiveLoginMode} />
         </div>
       </div>

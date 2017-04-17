@@ -6,7 +6,7 @@ export default class AppHeader extends Component {
   render() {
     return (
       <div className="app-header">
-        <AppNavigation />
+        <AppNavigation logout={this.props.logout}/>
       </div>
     )
   }

@@ -1,13 +1,13 @@
 import * as types from '../actions/action-types';
 
-const userReducerInitialState = { isLogged: false };
+const userInfoInit = JSON.parse(localStorage.getItem('userInfo'));
 
-const userReducer = (state = userReducerInitialState, action) => {
+const userReducer = (state = userInfoInit, action) => {
   switch (action.type) {
     case types.LOGIN_USER:
-      return { isLogged: true };
+      return action.userInfo;
     case types.LOGOUT_USER:
-      return { isLogged: false };
+      return action.userInfo;
     default:
       return state;
   }
