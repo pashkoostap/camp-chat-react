@@ -26,7 +26,7 @@ class Auth extends React.Component {
             <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--sign-in " + (!this.state.isActiveLoginMode ? 'active' : '')}
               onClick={this.changeAuthMode}>Register</a>
           </nav>
-          <AuthLogin visible={this.state.isActiveLoginMode} login={this.props.login} showChat={this.props.showChat}/>
+          <AuthLogin visible={this.state.isActiveLoginMode} login={this.props.login} changeIsLoggedState={this.props.changeIsLoggedState}/>
           <AuthRegister visible={!this.state.isActiveLoginMode} />
         </div>
       </div>

@@ -18,7 +18,7 @@ export default class AppNavigation extends Component {
               <span className="user-profile-link__name">Ostap Pashko</span>
               <div className="user-profile-link__photo" style={{ backgroundImage: 'url(assets/img/avatar__1.jpg)' }}></div>
             </a>
-            <button className="log-out  chat-icon-sign-out" onClick={() => { this.props.logout() }}></button>
+            <button className="log-out  chat-icon-sign-out" onClick={() => { this.props.logout(); this.props.changeIsLoggedState() }}></button>
           </div>
         </div>
       </div>

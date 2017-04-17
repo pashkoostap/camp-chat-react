@@ -16,7 +16,7 @@ class RootComponent extends Component {
     super(props, context);
     this.state = {
       text: 'temp',
-      isLoggedUser: true
+      isLoggedUser: false
     }
     this.socket;
 
@@ -24,13 +24,12 @@ class RootComponent extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.onUserLogin = this.onUserLogin.bind(this);
     this.onUserLogout = this.onUserLogout.bind(this);
-    this.showChatWindow = this.showChatWindow.bind(this);
+    this.changeIsLoggedState = this.changeIsLoggedState.bind(this);
   }
   render() {
-    console.log(this.props.userInfo);
     return (
       <div className="app-wrap">
-        <Header logout={this.onUserLogout} />
+        <Header logout={this.onUserLogout} changeIsLoggedState={this.changeIsLoggedState}/>
         <button onClick={this.initSocket}>Init Socket</button>
         <button onClick={this.sendMessage}>Send message</button>
         {/*<Switch>
@@ -43,7 +42,7 @@ class RootComponent extends Component {
           }} />
         </Switch>*/
         }
-        <Auth login={this.onUserLogin} visible={this.state.isLoggedUser} showChat={this.showChatWindow}/>
+        <Auth login={this.onUserLogin} visible={this.state.isLoggedUser} changeIsLoggedState={this.changeIsLoggedState}/>
         <Chats text={this.state.text} visible={!this.state.isLoggedUser} />
       </div>
     )
@@ -63,15 +62,13 @@ class RootComponent extends Component {
   onUserLogin(userInfo) {
     this.props.actions.userLogin(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
-    console.log(localStorage.getItem('userInfo'));
   }
   onUserLogout(userInfo) {
     this.props.actions.userLogout(userInfo);
     localStorage.setItem('userInfo', '');
-    console.log(localStorage.getItem('userInfo'));
   }
-  showChatWindow() {
-    this.setState({ isLoggedUser: false });
+  changeIsLoggedState() {
+    this.setState({ isLoggedUser: !this.state.isLoggedUser });
   }
 }
 
