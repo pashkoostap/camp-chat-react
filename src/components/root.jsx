@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import * as io from 'socket.io-client';
 
 import Header from './core/header';
 import Auth from './auth/auth';
 import Chats from './chats/chats';
 import Home from './home';
-
 
 export default class RootComponent extends Component {
   constructor(props, context) {
@@ -13,11 +13,13 @@ export default class RootComponent extends Component {
     this.state = {
       text: 'temp'
     }
+    this.initSocket = this.initSocket.bind(this);
   }
   render() {
     return (
       <div className="app-wrap">
         <Header />
+        <button onClick={this.initSocket}>Init Socket</button>
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/auth' component={() => { return (<Auth text={this.state.text} />) }} />
@@ -25,5 +27,9 @@ export default class RootComponent extends Component {
         </Switch>
       </div>
     )
+  }
+  initSocket() {
+    console.log('asds')
+    let socket = io.connect('')
   }
 }

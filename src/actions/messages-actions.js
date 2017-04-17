@@ -1,4 +1,5 @@
 import * as types from './action-types';
+import { API_CONFIG } from '../api/api-config';
 
 export function createMessage(msg) {
   return {
@@ -16,7 +17,7 @@ export function loadMessagesSuccess(messages) {
 
 export function loadMessages() {
   return function (dispatch) {
-    return window.fetch('http://eleksfrontendcamp-mockapitron.rhcloud.com/messages')
+    return window.fetch(API_CONFIG.MESSAGES)
       .then(res => res.json())
       .then(messages => {
         dispatch(loadMessagesSuccess(messages));
