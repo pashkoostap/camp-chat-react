@@ -1,6 +1,6 @@
 import * as types from '../actions/action-types';
 
-const userInfoInit = JSON.parse(localStorage.getItem('userInfo'));
+const userInfoInit = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : {};
 
 const userReducer = (state = userInfoInit, action) => {
   switch (action.type) {

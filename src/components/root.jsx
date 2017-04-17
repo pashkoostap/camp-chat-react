@@ -15,7 +15,8 @@ class RootComponent extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      text: 'temp'
+      text: 'temp',
+      isLoggedUser: true
     }
     this.socket;
 
@@ -23,22 +24,27 @@ class RootComponent extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.onUserLogin = this.onUserLogin.bind(this);
     this.onUserLogout = this.onUserLogout.bind(this);
+    this.showChatWindow = this.showChatWindow.bind(this);
   }
   render() {
+    console.log(this.props.userInfo);
     return (
       <div className="app-wrap">
-        <Header logout={this.onUserLogout}/>
+        <Header logout={this.onUserLogout} />
         <button onClick={this.initSocket}>Init Socket</button>
         <button onClick={this.sendMessage}>Send message</button>
-        <Switch>
+        {/*<Switch>
           <Route exact path='/' component={Home} />
           <Route path='/auth' component={() => {
             return (<Auth login={this.onUserLogin} />)
           }} />
           <Route path='/chat' component={() => {
-            return (<Chats text={this.state.text} />)
+            return ()
           }} />
-        </Switch>
+        </Switch>*/
+        }
+        <Auth login={this.onUserLogin} visible={this.state.isLoggedUser} showChat={this.showChatWindow}/>
+        <Chats text={this.state.text} visible={!this.state.isLoggedUser} />
       </div>
     )
   }
@@ -63,6 +69,9 @@ class RootComponent extends Component {
     this.props.actions.userLogout(userInfo);
     localStorage.setItem('userInfo', '');
     console.log(localStorage.getItem('userInfo'));
+  }
+  showChatWindow() {
+    this.setState({ isLoggedUser: false });
   }
 }
 

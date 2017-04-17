@@ -15,7 +15,7 @@ export default class ChatsComponent extends Component {
   render() {
     console.log(this.props.text)
     return (
-      <div className="ct-chats">
+      <div className={"ct-chats " + (this.props.visible ? 'visible' : 'hidden')}>
         <div className="osp-chat">
           <div className={"left-chat-wrap " + (this.state.isLeftPanelOpen ? "visible" : "hidden")}>
             <ChatNav togglePanel={this.toggleLeftPanel} />

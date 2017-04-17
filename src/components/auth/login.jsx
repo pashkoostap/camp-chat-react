@@ -64,6 +64,7 @@ export default class AuthLogin extends Component {
       .then((res) => res.json())
       .then((userInfo) => {
         this.props.login(userInfo);
+        this.props.showChat();
       })
   }
 }

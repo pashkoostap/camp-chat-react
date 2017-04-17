@@ -43,6 +43,9 @@ ol {
     flex-shrink: 0;
     width: 100%;
     max-height: calc(100vh - 70px);
+    &.hidden {
+      display: none;
+    }
     @media(max-width: 767px) {
         max-height: calc(100vh - 100px);
     }
@@ -51,6 +54,9 @@ ol {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    &.hidden {
+      display: none;
+    }
 }
 .ct-home {
     display: flex;
