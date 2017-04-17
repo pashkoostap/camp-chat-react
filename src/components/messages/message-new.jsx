@@ -30,14 +30,10 @@ export default class MessageNew extends Component {
   }
   createNewMessage(e) {
     e.preventDefault();
-    let msg = {
-      msg: this.state.msg,
-      user: {
-        username: 'user_1@gmail.com'
-      },
-      time: new Date().getTime()
-    }
-    this.props.sendMessage(msg);
+    this.props.socket().emit('message', this.state.msg);
+    this.props.socket().on('message', msg => {
+      this.props.sendMessage(msg);
+    })
     this.setState({ msg: '' });
   }
 }

@@ -50,7 +50,6 @@ export default class AuthLogin extends Component {
   }
   onLogin(e) {
     e.preventDefault();
-    console.log(this.state)
     let myHeaders = new Headers();
     myHeaders.set('Content-Type', 'application/json');
 
@@ -63,6 +62,7 @@ export default class AuthLogin extends Component {
     fetch(API_CONFIG.LOGIN, myInit)
       .then((res) => res.json())
       .then((userInfo) => {
+        this.props.initSocket(userInfo.token);
         this.props.login(userInfo);
         this.props.changeIsLoggedState();
       })

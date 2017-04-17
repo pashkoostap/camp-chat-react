@@ -29,7 +29,8 @@ export default class MessagesList extends Component {
         key={msg.time}
         text={msg.msg}
         user={msg.user.username}
-        time={msg.time} />
+        time={msg.time}
+        isFromMe={(msg.user.username == this.props.user.user.username) ? true : false } />
     })
   }
 }

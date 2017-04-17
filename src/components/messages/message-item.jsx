@@ -7,7 +7,7 @@ export default class MessageItem extends Component {
   }
   render() {
     return (
-      <li className="right-chat-message  to-user">
+      <li className={"right-chat-message " + (this.props.isFromMe ? 'from-user' : 'to-user')}>
         <div className="right-chat-message__user-photo" style={{ backgroundImage: "url(assets/img/avatar__1.jpg)" }}></div>
         <div className="right-chat-notice">
           <p className="right-chat-notice__content">

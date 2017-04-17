@@ -22,7 +22,7 @@ export default class ChatsComponent extends Component {
           </div>
 
           <div className="right-chat-wrap">
-            <ChatDetail />
+            <ChatDetail socket={this.props.socket}/>
           </div>
         </div>
       </div>

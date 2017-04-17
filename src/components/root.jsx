@@ -16,26 +16,28 @@ class RootComponent extends Component {
     super(props, context);
     this.state = {
       text: 'temp',
-      isLoggedUser: this.props.userInfo.user !== undefined 
+      isLoggedUser: this.props.userInfo.user !== undefined
     }
     this.socket;
 
-    this.initSocket = this.initSocket.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
     this.onUserLogin = this.onUserLogin.bind(this);
     this.onUserLogout = this.onUserLogout.bind(this);
     this.changeIsLoggedState = this.changeIsLoggedState.bind(this);
+    this.initSocket = this.initSocket.bind(this);
+    this.getSocket = this.getSocket.bind(this);
+  }
+  componentDidMount() {
+    if (this.props.userInfo.token) {
+      this.initSocket(this.props.userInfo.token);
+    }
   }
   render() {
-    console.log(this.props.userInfo.user)
     return (
       <div className="app-wrap">
-        <Header 
-          logout={this.onUserLogout} 
+        <Header
+          logout={this.onUserLogout}
           changeIsLoggedState={this.changeIsLoggedState}
-          user={this.props.userInfo}/>
-        <button onClick={this.initSocket}>Init Socket</button>
-        <button onClick={this.sendMessage}>Send message</button>
+          user={this.props.userInfo} />
         {/*<Switch>
           <Route exact path='/' component={Home} />
           <Route path='/auth' component={() => {
@@ -46,22 +48,27 @@ class RootComponent extends Component {
           }} />
         </Switch>*/
         }
-        <Auth login={this.onUserLogin} visible={!this.state.isLoggedUser} changeIsLoggedState={this.changeIsLoggedState}/>
-        <Chats visible={this.state.isLoggedUser} />
+        <Auth
+          login={this.onUserLogin}
+          visible={!this.state.isLoggedUser}
+          changeIsLoggedState={this.changeIsLoggedState}
+          initSocket={this.initSocket} />
+        <Chats 
+          visible={this.state.isLoggedUser}
+          socket={this.getSocket} />
       </div>
     )
   }
-  initSocket() {
+  initSocket(JWT) {
     this.socket = io.connect(API_CONFIG.SOCKET);
     this.socket.on('connect', () => {
-      console.log(this.socket);
-      this.socket.emit('authenticate', { token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBhc2hrb09zdGFwIn0.qDBVTt_QG2BB8jnqKvJwUxQTTMQfQnny1_XfoEMGC7w" });
+      this.socket.emit('authenticate', { token: JWT });
       console.log(this.socket);
     })
     this.socket.on('message', msg => { console.log(msg) })
   }
-  sendMessage() {
-    // this.socket.emit('message', 'Hi')
+  getSocket() {
+    return this.socket;
   }
   onUserLogin(userInfo) {
     this.props.actions.userLogin(userInfo);

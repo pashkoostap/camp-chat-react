@@ -15,8 +15,12 @@ class ChatDetail extends Component {
   render() {
     return (
       <div className="ct-chat-detail">
-        <MessagesList messages={this.props.messages} />
-        <MessageNew sendMessage={this.sendNewMessage} />
+        <MessagesList 
+          messages={this.props.messages}
+          user={this.props.userInfo} />
+        <MessageNew 
+          sendMessage={this.sendNewMessage}
+          socket={this.props.socket} />
       </div>
     )
   }
@@ -27,7 +31,8 @@ class ChatDetail extends Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    messages: state.messages
+    messages: state.messages,
+    userInfo: state.userInfo
   };
 }
 
