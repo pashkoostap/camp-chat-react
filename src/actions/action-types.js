@@ -3,6 +3,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 // MESSAGES
+export const LOAD_MESSAGES_SUCCESS = 'LOAD_MESSAGES_SUCCESS';
 export const MESSAGE_NEW = 'MESSAGE_NEW';
 
 // USERS

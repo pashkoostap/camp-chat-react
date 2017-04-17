@@ -6,7 +6,7 @@ import createHistory from 'history/createBrowserHistory'
 
 import { Provider } from 'react-redux';
 import configureStore from './store/store-config';
-
+import { loadMessages } from './actions/messages-actions';
 import Style from './style.scss';
 
 import RootComponent from './components/root';
@@ -16,6 +16,7 @@ import HomePage from './components/home';
 
 
 const store = configureStore();
+store.dispatch(loadMessages());
 const browserHistory = createHistory();
 
 ReactDOM.render(
