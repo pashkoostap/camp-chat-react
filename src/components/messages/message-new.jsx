@@ -38,5 +38,6 @@ export default class MessageNew extends Component {
       time: new Date().getTime()
     }
     this.props.sendMessage(msg);
+    this.setState({ msg: '' });
   }
 }
