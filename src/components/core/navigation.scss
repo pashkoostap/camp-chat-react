@@ -40,6 +40,9 @@
 .user-profile {
     display: flex;
     cursor: pointer;
+    &.hidden {
+      display: none;
+    }
     @media (max-width: 767px) {
         justify-content: center;
         margin-bottom: 10px;

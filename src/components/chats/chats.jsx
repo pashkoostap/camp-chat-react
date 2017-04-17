@@ -13,7 +13,6 @@ export default class ChatsComponent extends Component {
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
   }
   render() {
-    console.log(this.props.text)
     return (
       <div className={"ct-chats " + (this.props.visible ? 'visible' : 'hidden')}>
         <div className="osp-chat">

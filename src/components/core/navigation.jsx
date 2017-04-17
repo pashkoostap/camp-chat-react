@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import Style from './navigation.scss';
 
 export default class AppNavigation extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="chat-nav-wrap">
@@ -13,9 +16,9 @@ export default class AppNavigation extends Component {
             <Link to="/auth">Login</Link>
           </nav>
 
-          <div className="user-profile">
+          <div className={"user-profile " + (this.props.user.user !== undefined ? 'visible' : 'hidden')}>
             <a className="user-profile-link">
-              <span className="user-profile-link__name">Ostap Pashko</span>
+              <span className="user-profile-link__name">{this.props.user.user !== undefined ? this.props.user.user.username : ''}</span>
               <div className="user-profile-link__photo" style={{ backgroundImage: 'url(assets/img/avatar__1.jpg)' }}></div>
             </a>
             <button className="log-out  chat-icon-sign-out" onClick={() => { this.props.logout(); this.props.changeIsLoggedState() }}></button>

@@ -16,7 +16,7 @@ class RootComponent extends Component {
     super(props, context);
     this.state = {
       text: 'temp',
-      isLoggedUser: false
+      isLoggedUser: this.props.userInfo.user !== undefined 
     }
     this.socket;
 
@@ -27,9 +27,13 @@ class RootComponent extends Component {
     this.changeIsLoggedState = this.changeIsLoggedState.bind(this);
   }
   render() {
+    console.log(this.props.userInfo.user)
     return (
       <div className="app-wrap">
-        <Header logout={this.onUserLogout} changeIsLoggedState={this.changeIsLoggedState}/>
+        <Header 
+          logout={this.onUserLogout} 
+          changeIsLoggedState={this.changeIsLoggedState}
+          user={this.props.userInfo}/>
         <button onClick={this.initSocket}>Init Socket</button>
         <button onClick={this.sendMessage}>Send message</button>
         {/*<Switch>
@@ -42,8 +46,8 @@ class RootComponent extends Component {
           }} />
         </Switch>*/
         }
-        <Auth login={this.onUserLogin} visible={this.state.isLoggedUser} changeIsLoggedState={this.changeIsLoggedState}/>
-        <Chats text={this.state.text} visible={!this.state.isLoggedUser} />
+        <Auth login={this.onUserLogin} visible={!this.state.isLoggedUser} changeIsLoggedState={this.changeIsLoggedState}/>
+        <Chats visible={this.state.isLoggedUser} />
       </div>
     )
   }
