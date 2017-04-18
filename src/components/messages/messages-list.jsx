@@ -6,6 +6,7 @@ export default class MessagesList extends Component {
   constructor(props) {
     super(props);
     this.msgList = null;
+    this.isMessageFromThisUser = this.isMessageFromThisUser.bind(this);
   }
   render() {
     return (
@@ -23,6 +24,19 @@ export default class MessagesList extends Component {
   componentDidUpdate() {
     this.setScrollHeight()
   }
+  isMessageFromThisUser(msg) {
+    let msgUsername = msg.user.username;
+    let propsUser = this.props.user.user;
+    if (propsUser != undefined) {
+      if (msgUsername == propsUser.username) {
+        return true;
+      }
+    }
+    else {
+      return false;
+    }
+
+  }
   renderMessages() {
     return this.props.messages.map(msg => {
       return <MessageItem
@@ -30,7 +44,7 @@ export default class MessagesList extends Component {
         text={msg.msg}
         user={msg.user.username}
         time={msg.time}
-        isFromMe={(msg.user.username == this.props.user.user.username) ? true : false } />
+        isFromMe={this.isMessageFromThisUser(msg)} />
     })
   }
 }
