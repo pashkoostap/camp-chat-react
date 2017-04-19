@@ -53,7 +53,7 @@ class RootComponent extends Component {
           visible={!this.state.isLoggedUser}
           changeIsLoggedState={this.changeIsLoggedState}
           initSocket={this.initSocket} />
-        <Chats 
+        <Chats
           visible={this.state.isLoggedUser}
           socket={this.getSocket} />
       </div>
@@ -65,7 +65,15 @@ class RootComponent extends Component {
       this.socket.emit('authenticate', { token: JWT });
       console.log(this.socket);
     })
-    this.socket.on('message', msg => { console.log(msg) })
+    this.socket.on('message', msg => {
+      console.log(msg)
+    })
+    this.socket.on('join', msg => {
+      console.log('joined', msg)
+    })
+    this.socket.on('leave', msg => {
+      console.log('leaved', msg)
+    })
   }
   getSocket() {
     return this.socket;

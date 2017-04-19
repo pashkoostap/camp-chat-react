@@ -7,6 +7,7 @@ export default class MessageNew extends Component {
     this.state = {
       msg: ''
     }
+    this.socketInit = false;
     this.createNewMessage = this.createNewMessage.bind(this);
     this.changeMessageText = this.changeMessageText.bind(this);
   }
@@ -25,15 +26,20 @@ export default class MessageNew extends Component {
       </form>
     )
   }
+  componentWillUpdate() {
+    if (!this.socketInit) {
+      this.socketInit = true;
+      this.props.socket().on('message', msg => {
+        this.props.sendMessage(msg);
+      })
+    }
+  }
   changeMessageText(e) {
     this.setState({ msg: e.target.value });
   }
   createNewMessage(e) {
     e.preventDefault();
     this.props.socket().emit('message', this.state.msg);
-    this.props.socket().on('message', msg => {
-      this.props.sendMessage(msg);
-    })
     this.setState({ msg: '' });
   }
 }

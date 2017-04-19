@@ -11,9 +11,7 @@ export default class MessageItem extends Component {
         <div className="right-chat-message__user-photo" style={{ backgroundImage: "url(assets/img/avatar__1.jpg)" }}></div>
         <div className="right-chat-notice">
           <span className="right-chat-message__username">{this.props.user}</span>
-          <p className="right-chat-notice__content">
-            {this.props.text}
-          </p>
+          <p className="right-chat-notice__content">{this.props.text}</p>
           <span className="right-chat-message__date">
             {this.convertMessageTime(this.props.time)}
           </span>

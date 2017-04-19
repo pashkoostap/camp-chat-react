@@ -38,13 +38,15 @@ export default class MessagesList extends Component {
 
   }
   renderMessages() {
-    return this.props.messages.map(msg => {
-      return <MessageItem
-        key={msg.time}
-        text={msg.msg}
-        user={msg.user.username}
-        time={msg.time}
-        isFromMe={this.isMessageFromThisUser(msg)} />
+    return this.props.messages.map(el => {
+      if (typeof el.msg == 'string') {
+        return <MessageItem
+          key={el.time}
+          text={el.msg}
+          user={el.user.username}
+          time={el.time}
+          isFromMe={this.isMessageFromThisUser(el)} />
+      }
     })
   }
 }
