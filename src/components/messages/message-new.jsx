@@ -5,7 +5,8 @@ export default class MessageNew extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      msg: ''
+      msg: '',
+      disabledButton: true
     }
     this.socketInit = false;
     this.createNewMessage = this.createNewMessage.bind(this);
@@ -22,12 +23,13 @@ export default class MessageNew extends Component {
         <button
           type="submit"
           className="right-chat-form__submit  chat-icon-send-button"
-          onClick={this.createNewMessage}></button>
+          onClick={this.createNewMessage}
+          disabled={this.state.disabledButton}></button>
       </form>
     )
   }
   componentWillUpdate() {
-    if (!this.socketInit) {
+    if (!this.socketInit && this.props.socket() !== undefined) {
       this.socketInit = true;
       this.props.socket().on('message', msg => {
         this.props.sendMessage(msg);
@@ -35,7 +37,18 @@ export default class MessageNew extends Component {
     }
   }
   changeMessageText(e) {
-    this.setState({ msg: e.target.value });
+    let inputValue = e.target.value;
+    if (inputValue) {
+      this.setState({
+        msg: inputValue,
+        disabledButton: false
+      });
+    } else {
+      this.setState({
+        msg: inputValue,
+        disabledButton: true
+      })
+    }
   }
   createNewMessage(e) {
     e.preventDefault();
