@@ -13,6 +13,7 @@ class Auth extends React.Component {
     };
 
     this.changeAuthMode = this.changeAuthMode.bind(this);
+    this.switchToLogin = this.switchToLogin.bind(this);
   }
 
   render() {
@@ -31,7 +32,9 @@ class Auth extends React.Component {
             login={this.props.login}
             changeIsLoggedState={this.props.changeIsLoggedState}
             initSocket={this.props.initSocket} />
-          <AuthRegister visible={!this.state.isActiveLoginMode} />
+          <AuthRegister
+            visible={!this.state.isActiveLoginMode}
+            switchToLogin={this.switchToLogin} />
         </div>
       </div>
     );
@@ -45,7 +48,9 @@ class Auth extends React.Component {
         lastClickedButton: lastButtonClass
       })
     }
-
+  }
+  switchToLogin() {
+    this.setState({ isActiveLoginMode: true });
   }
 }
 
