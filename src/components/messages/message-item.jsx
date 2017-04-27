@@ -22,7 +22,7 @@ export default class MessageItem extends Component {
   }
   convertMessageTime(msgTime) {
     let newDate = new Date(+msgTime);
-    let newDateFormat = `${newDate.toISOString().slice(0, 10)} ${newDate.toISOString().slice(11, 19)}`;
+    let newDateFormat = `${newDate.toISOString().slice(0, 10)} ${newDate.toString().slice(16, 24)}`;
     return newDateFormat;
   }
 }
