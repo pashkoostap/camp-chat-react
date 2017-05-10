@@ -4,15 +4,15 @@ import ChatListItem from './chat-list-item';
 import CHATS from '../../mock-data/mock-chats';
 
 export default class ChatList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       chats: CHATS
     }
   }
   renderChatList() {
-    return this.state.chats.map(el => {
-      return <ChatListItem key={el.id} data={el}/>
+    return this.props.chats.map(chat => {
+      return <ChatListItem key={chat._id} chat={chat} />
     })
   }
   render() {

@@ -27,6 +27,7 @@ class ChatDetail extends Component {
   sendNewMessage(msg) {
     this.props.actions.createMessage(msg);
   }
+  
 }
 
 function mapStateToProps(state, ownProps) {

@@ -8,19 +8,15 @@ export function createMessage(msg) {
   }
 }
 
-export function loadMessagesSuccess(messages) {
-  return {
-    type: types.LOAD_MESSAGES_SUCCESS,
-    messages
-  };
-}
-
 export function loadMessages() {
   return function (dispatch) {
-    return window.fetch(API_CONFIG.MESSAGES)
+    return window.fetch(API_CONFIG.GET_MESSAGES_CHAT_ID)
       .then(res => res.json())
       .then(messages => {
-        dispatch(loadMessagesSuccess(messages));
+        dispatch({
+          type: types.LOAD_MESSAGES,
+          messages
+        });
       })
       .catch(err => {
         throw (err);
