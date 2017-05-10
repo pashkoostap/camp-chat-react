@@ -13,9 +13,11 @@ class ChatsComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLeftPanelOpen: true
+      isLeftPanelOpen: true,
+      selectedChat: ''
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
+    this.selectChat = this.selectChat.bind(this);
   }
   render() {
     return (
@@ -23,11 +25,11 @@ class ChatsComponent extends Component {
         <div className="osp-chat">
           <div className={"left-chat-wrap " + (this.state.isLeftPanelOpen ? "visible" : "hidden")}>
             <ChatNav togglePanel={this.toggleLeftPanel} />
-            <ChatList chats={this.props.chats} />
+            <ChatList chats={this.props.chats} selectChat={this.selectChat} />
           </div>
 
           <div className="right-chat-wrap">
-            <ChatDetail socket={this.props.socket} />
+            <ChatDetail socket={this.props.socket} selectedChat={this.state.selectedChat} />
           </div>
         </div>
       </div>
@@ -36,8 +38,12 @@ class ChatsComponent extends Component {
   toggleLeftPanel(e) {
     this.setState({ isLeftPanelOpen: !this.state.isLeftPanelOpen });
   }
-  loadMessagesForChat(chatID) {
-
+  selectChat(chatID) {
+    this.setState((state, props) => {
+      return {
+        selectedChat: chatID
+      }
+    })
   }
   componentDidMount() {
     if (this.props.userInfo.token) {

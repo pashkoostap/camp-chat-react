@@ -8,9 +8,9 @@ export function createMessage(msg) {
   }
 }
 
-export function loadMessages() {
+export function loadMessages(chatID) {
   return function (dispatch) {
-    return window.fetch(API_CONFIG.GET_MESSAGES_CHAT_ID)
+    return window.fetch(`${API_CONFIG.GET_MESSAGES_CHAT_ID}/${chatID}`)
       .then(res => res.json())
       .then(messages => {
         dispatch({

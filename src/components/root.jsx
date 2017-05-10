@@ -87,7 +87,7 @@ class RootComponent extends Component {
   onUserLogout(userInfo) {
     this.props.actions.userLogout(userInfo);
     localStorage.setItem('userInfo', '');
-    window.location.reload();
+    this.props.history.push('/auth');
   }
   changeIsLoggedState() {
     this.setState({ isLoggedUser: !this.state.isLoggedUser });
