@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router'
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -15,7 +16,6 @@ class RootComponent extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      text: 'temp',
       isLoggedUser: this.props.userInfo.user !== undefined
     }
     this.socket;
@@ -38,24 +38,25 @@ class RootComponent extends Component {
           logout={this.onUserLogout}
           changeIsLoggedState={this.changeIsLoggedState}
           user={this.props.userInfo} />
-        {/*<Switch>
-          <Route exact path='/' component={Home} />
-          <Route path='/auth' component={() => {
-            return (<Auth login={this.onUserLogin} />)
-          }} />
-          <Route path='/chat' component={() => {
-            return ()
-          }} />
-        </Switch>*/
+        {
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/auth' component={() => {
+              return (
+                <Auth
+                  login={this.onUserLogin}
+                  changeIsLoggedState={this.changeIsLoggedState}
+                  initSocket={this.initSocket} />
+              )
+            }} />
+            <Route path='/chat' component={() => {
+              return (
+                <Chats
+                  socket={this.getSocket} />
+              )
+            }} />
+          </Switch>
         }
-        <Auth
-          login={this.onUserLogin}
-          visible={!this.state.isLoggedUser}
-          changeIsLoggedState={this.changeIsLoggedState}
-          initSocket={this.initSocket} />
-        <Chats
-          visible={this.state.isLoggedUser}
-          socket={this.getSocket} />
       </div>
     )
   }
@@ -81,6 +82,7 @@ class RootComponent extends Component {
   onUserLogin(userInfo) {
     this.props.actions.userLogin(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    this.props.history.push('/chat');
   }
   onUserLogout(userInfo) {
     this.props.actions.userLogout(userInfo);
@@ -104,4 +106,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(RootComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(RootComponent));

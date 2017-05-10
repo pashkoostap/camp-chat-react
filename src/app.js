@@ -16,7 +16,7 @@ import HomePage from './components/home';
 
 
 const store = configureStore();
-store.dispatch(loadMessages());
+// store.dispatch(loadMessages());
 const browserHistory = createHistory();
 
 ReactDOM.render(
