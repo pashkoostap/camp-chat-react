@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "startapp": "webpack-dev-server",
-    "prod": "webpack --progress --watch",
-    "postinstall": "webpack --progress --watch"
+    "prod": "webpack --progress",
+    "postinstall": "webpack --progress"
   },
   "repository": {
     "type": "git",
