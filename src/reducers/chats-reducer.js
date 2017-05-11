@@ -4,6 +4,8 @@ const chatsReducer = (state = [], action) => {
   switch (action.type) {
     case types.LOAD_CHATS:
       return action.chats;
+    case types.RESET_CHATS:
+      return action.chats;
     default:
       return state;
   }

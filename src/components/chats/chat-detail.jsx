@@ -20,12 +20,16 @@ class ChatDetail extends Component {
   render() {
     return (
       <div className="ct-chat-detail">
+        <h3 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h3>
         <MessagesList
+          visible={this.state.selectedChat}
           messages={this.props.messages}
           user={this.props.userInfo} />
         <MessageNew
+          visible={this.state.selectedChat}
           sendMessage={this.sendNewMessage}
-          socket={this.props.socket} />
+          socket={this.props.socket}
+          selectedChat={this.props.selectedChat} />
       </div>
     )
   }
@@ -39,10 +43,14 @@ class ChatDetail extends Component {
         });
       }
     }
-
+  }
+  componentWillUnmount() {
+    this.props.actions.resetMessages();
   }
   sendNewMessage(msg) {
-    this.props.actions.createMessage(msg);
+    if (this.state.selectedChat === msg.chatID) {
+      this.props.actions.createMessage(msg)
+    }
   }
 }
 

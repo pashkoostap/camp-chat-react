@@ -10,7 +10,7 @@ export default class MessagesList extends Component {
   }
   render() {
     return (
-      <ul className="right-chat-messages" ref={(msgList) => { this.msgList = msgList }}>
+      <ul className={"right-chat-messages " + (this.props.visible ? "visible" : "hidden")} ref={(msgList) => { this.msgList = msgList }}>
         {this.renderMessages()}
       </ul>
     )

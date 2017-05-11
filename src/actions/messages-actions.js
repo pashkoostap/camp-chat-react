@@ -8,6 +8,13 @@ export function createMessage(msg) {
   }
 }
 
+export function resetMessages() {
+  return {
+    type: types.RESET_MESSAGES,
+    messages: []
+  }
+}
+
 export function loadMessages(chatID, callback) {
   return function (dispatch) {
     return window.fetch(`${API_CONFIG.GET_MESSAGES_CHAT_ID}/${chatID}`)

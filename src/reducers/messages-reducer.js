@@ -6,6 +6,8 @@ const messagesReducer = (state = [], action) => {
       return action.messages;
     case types.MESSAGE_NEW:
       return [...state, action.message];
+    case types.RESET_MESSAGES:
+      return action.messages;
     default:
       return state;
   }

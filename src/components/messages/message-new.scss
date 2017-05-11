@@ -9,6 +9,9 @@
     position: relative;
     align-self: flex-end;
     border-top: 1px solid #ededfa;
+    &.hidden {
+      display: none;
+    }
     // SEND FORM TEXTAREA
     &__textarea {
         display: flex;

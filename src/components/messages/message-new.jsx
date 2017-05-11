@@ -14,7 +14,7 @@ export default class MessageNew extends Component {
   }
   render() {
     return (
-      <form action="/" className="right-chat-form">
+      <form action="/" className={"right-chat-form " + (this.props.visible ? "visible" : "hidden")}>
         <textarea name="message"
           className="right-chat-form__textarea"
           placeholder="Type something"
@@ -27,6 +27,11 @@ export default class MessageNew extends Component {
           disabled={this.state.disabledButton}></button>
       </form>
     )
+  }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.selectedChat !== nextProps.selectedChat) {
+      console.log(nextProps.selectedChat)
+    }
   }
   componentWillUpdate() {
     if (!this.socketInit && this.props.socket() !== undefined) {
@@ -52,7 +57,11 @@ export default class MessageNew extends Component {
   }
   createNewMessage(e) {
     e.preventDefault();
-    this.props.socket().emit('message', this.state.msg);
+    let message = {
+      chatID: this.props.selectedChat,
+      text: this.state.msg
+    } 
+    this.props.socket().emit('message', message);
     this.setState({ msg: '' });
   }
 }

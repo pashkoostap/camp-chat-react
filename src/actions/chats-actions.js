@@ -16,3 +16,10 @@ export function loadChats(userID) {
       });
   };
 }
+
+export function resetChats() {
+  return {
+    type: types.RESET_CHATS,
+    chats: []
+  }
+}
