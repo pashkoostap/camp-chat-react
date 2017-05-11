@@ -45,10 +45,10 @@
     "json-loader": "^0.5.4",
     "redux-immutable-state-invariant": "^2.0.0",
     "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.1"
+    "style-loader": "^0.16.1",
+    "node-sass": "^4.5.2"
   },
   "devDependencies": {
-    "node-sass": "^4.5.2",
     "webpack-dev-server": "^2.4.2"
   }
 }
