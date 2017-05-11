@@ -14,7 +14,8 @@ class ChatDetail extends Component {
     this.sendNewMessage = this.sendNewMessage.bind(this);
     this.state = {
       isMessagesLoading: false,
-      selectedChat: ''
+      selectedChat: '',
+      spinnerVisible: false
     }
   }
   render() {
@@ -22,7 +23,7 @@ class ChatDetail extends Component {
       <div className="ct-chat-detail">
         <h3 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h3>
         <MessagesList
-          visible={this.state.selectedChat}
+          spinnerVisible={this.state.spinnerVisible}
           messages={this.props.messages}
           user={this.props.userInfo} />
         <MessageNew
@@ -37,9 +38,20 @@ class ChatDetail extends Component {
     let { selectedChat } = nextProps;
     if (selectedChat && selectedChat !== this.state.selectedChat) {
       if (!this.state.isMessagesLoading) {
-        this.setState((state, props) => { return { isMessagesLoading: true, selectedChat: nextProps.selectedChat } })
+        this.setState((state, props) => {
+          return {
+            isMessagesLoading: true,
+            selectedChat: nextProps.selectedChat,
+            spinnerVisible: true
+          }
+        })
         this.props.actions.loadMessages(nextProps.selectedChat, () => {
-          this.setState((state, props) => { return { isMessagesLoading: false } })
+          this.setState((state, props) => {
+            return {
+              isMessagesLoading: false,
+              spinnerVisible: false
+            }
+          })
         });
       }
     }

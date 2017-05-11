@@ -19,7 +19,7 @@ class Auth extends React.Component {
   render() {
     return (
       <div className={"ct-auth visible"}>
-        <h3 className="auth-title">Please login or register to enter chat</h3>
+        {/*<h3 className="auth-title">Please login or register to enter chat</h3>*/}
         <div className="osp-chat-form-wrap">
           <nav className="osp-chat-form-nav">
             <a className={"osp-chat-form-nav__btn  osp-chat-form-nav__btn--login " + (this.state.isActiveLoginMode ? 'active' : '')}

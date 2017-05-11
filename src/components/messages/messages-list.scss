@@ -12,3 +12,8 @@
       display: none;
     }
 }
+.right-chat-messages-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}

@@ -5,6 +5,8 @@
     &__title {
       display: flex;
       margin: auto;
+      flex-grow: 10000;
+      align-items: center;
       &.hidden {
         display: none;
       }

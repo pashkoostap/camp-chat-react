@@ -53,7 +53,7 @@ class AuthRegister extends React.Component {
         <input type="submit"
           className="osp-chat-form__submit  osp-chat-form__submit--sign-in"
           onClick={this.signUp}
-          value="Sign-in" />
+          value="Register" />
       </form>
     );
   }

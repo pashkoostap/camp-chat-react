@@ -67,10 +67,10 @@ class RootComponent extends Component {
       console.log(this.socket);
     })
     this.socket.on('message', msg => console.log(msg));
-    this.socket.on('join', msg => console.log('join', msg));
+    // this.socket.on('join', msg => console.log('join', msg));
     this.socket.on('leave', msg => console.log('leave', msg));
-    this.socket.on('join-room', msg => console.log('join-room', msg));
-    this.socket.on('leave-room', msg => console.log('leave-room', msg));
+    // this.socket.on('join-room', msg => console.log('join-room', msg));
+    // this.socket.on('leave-room', msg => console.log('leave-room', msg));
     this.socket.on('new-chat', chat => console.log('new-chat', chat));
   }
   getSocket() {
