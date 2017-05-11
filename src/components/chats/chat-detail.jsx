@@ -13,7 +13,8 @@ class ChatDetail extends Component {
     super(props);
     this.sendNewMessage = this.sendNewMessage.bind(this);
     this.state = {
-      isMessagesLoading: false
+      isMessagesLoading: false,
+      selectedChat: ''
     }
   }
   render() {
@@ -29,27 +30,16 @@ class ChatDetail extends Component {
     )
   }
   componentWillReceiveProps(nextProps) {
-    console.log('will receive')
-    if (nextProps.messages == 0 && this.state.isMessagesLoading == false) {
-      this.props.actions.loadMessages(nextProps.selectedChat);
-      this.setState((state, props) => {
-        return {
-          isMessagesLoading: true
-        }
-      })
+    let { selectedChat } = nextProps;
+    if (selectedChat && selectedChat !== this.state.selectedChat) {
+      if (!this.state.isMessagesLoading) {
+        this.setState((state, props) => { return { isMessagesLoading: true, selectedChat: nextProps.selectedChat } })
+        this.props.actions.loadMessages(nextProps.selectedChat, () => {
+          this.setState((state, props) => { return { isMessagesLoading: false } })
+        });
+      }
     }
-  }
-  shouldComponentUpdate() {
-    console.log('should update')
-    return true 
-  }
-  componentDidUpdate() {
-    // this.setState((state, props) => {
-    //   return {
-    //     isMessagesLoading: false
-    //   }
-    // })
-    console.log('did update')
+
   }
   sendNewMessage(msg) {
     this.props.actions.createMessage(msg);

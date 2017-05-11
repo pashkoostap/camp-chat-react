@@ -8,11 +8,12 @@ export function createMessage(msg) {
   }
 }
 
-export function loadMessages(chatID) {
+export function loadMessages(chatID, callback) {
   return function (dispatch) {
     return window.fetch(`${API_CONFIG.GET_MESSAGES_CHAT_ID}/${chatID}`)
       .then(res => res.json())
       .then(messages => {
+        callback()
         dispatch({
           type: types.LOAD_MESSAGES,
           messages
