@@ -1,12 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './app.js'
+    app: './src/app.js'
   },
   devtool: 'source-map',
-  context: `${__dirname}/src`,
   resolve: {
     extensions: ['.js', '.jsx', '.json', '.scss']
   },
@@ -27,7 +28,16 @@ module.exports = {
   },
   output: {
     filename: '[name].bundle.js',
-    path: `${__dirname}/dist`,
-    publicPath: '/assets'
-  }
+    path: `${__dirname}/dist/`,
+    publicPath: '/'
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      chunksSortMode: 'dependency'
+    }),
+    new CopyWebpackPlugin([
+      { from: './src/assets', to: './assets', force: true }
+    ])
+  ]
 }
