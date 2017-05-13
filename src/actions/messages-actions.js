@@ -1,10 +1,10 @@
 import * as types from './action-types';
 import { API_CONFIG } from '../api/api-config';
 
-export function createMessage(msg) {
+export function createMessage(message) {
   return {
-    type: types.MESSAGE_NEW,
-    message: msg
+    type: types.CREATE_MESSAGE,
+    message
   }
 }
 
@@ -30,4 +30,11 @@ export function loadMessages(chatID, callback) {
         throw (err);
       });
   };
+}
+
+export function newMessage(message) {
+  return {
+    type: types.NEW_MESSAGE,
+    message
+  }
 }

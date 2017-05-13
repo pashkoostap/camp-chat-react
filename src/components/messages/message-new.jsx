@@ -8,7 +8,6 @@ export default class MessageNew extends Component {
       msg: '',
       disabledButton: true
     }
-    this.socketInit = false;
     this.createNewMessage = this.createNewMessage.bind(this);
     this.changeMessageText = this.changeMessageText.bind(this);
   }
@@ -28,11 +27,9 @@ export default class MessageNew extends Component {
       </form>
     )
   }
-  componentWillUpdate() {
-    if (!this.socketInit && this.props.socket() !== undefined) {
-      this.socketInit = true;
+  componentDidMount() {
+    if (this.props.socket() !== undefined) {
       this.props.socket().on('message', msg => {
-        this.props.sendMessage(msg);
         if (msg.chatID == this.props.selectedChat) {
           this.props.sendMessage(msg);
         }
@@ -58,8 +55,8 @@ export default class MessageNew extends Component {
     let message = {
       chatID: this.props.selectedChat,
       text: this.state.msg
-    } 
+    }
     this.props.socket().emit('message', message);
-    this.setState({ msg: '' });
+    this.setState((state, props) => { return { msg: '', disabledButton: true } });
   }
 }

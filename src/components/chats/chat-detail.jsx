@@ -60,8 +60,8 @@ class ChatDetail extends Component {
     this.props.actions.resetMessages();
   }
   sendNewMessage(msg) {
-    if (this.state.selectedChat === msg.chatID) {
-      this.props.actions.createMessage(msg)
+    if (this.state.selectedChat == msg.chatID) {
+      this.props.actions.createMessage(msg);
     }
   }
 }

@@ -64,7 +64,8 @@ class ChatsComponent extends Component {
         this.props.socket().on('new-chat', chat => {
           chat.users.forEach(user => {
             if (user._id == this.props.userInfo.user._id) {
-              this.props.actions.newChat(chat)
+              this.props.actions.newChat(chat);
+              this.props.socket().emit('join-room', chat._id)
             }
           })
         })

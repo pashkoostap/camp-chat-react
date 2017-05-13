@@ -7,7 +7,8 @@ export const USER_LEAVED = 'USER_LEAVED';
 // MESSAGES
 export const LOAD_MESSAGES = 'LOAD_MESSAGES';
 export const RESET_MESSAGES = 'RESET_MESSAGES';
-export const MESSAGE_NEW = 'MESSAGE_NEW';
+export const CREATE_MESSAGE = 'CREATE_MESSAGE';
+export const NEW_MESSAGE = 'NEW_MESSAGE';
 // CHATS
 export const LOAD_CHATS = 'LOAD_CHATS';
 export const RESET_CHATS = 'RESET_CHATS';
