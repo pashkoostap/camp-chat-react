@@ -7,6 +7,11 @@
       margin: auto;
       flex-grow: 10000;
       align-items: center;
+      text-align: center;
+      justify-content: center;
+      @media (max-width: 767px) {
+        width: 250px;
+      }
       &.hidden {
         display: none;
       }

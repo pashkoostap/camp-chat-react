@@ -57,7 +57,8 @@ export default class MessagesList extends Component {
         return <MessageItem
           key={el.time}
           text={el.msg}
-          user={el.user.username}
+          username={el.user.username}
+          photo={el.user.photo}
           time={el.time}
           isFromMe={this.isMessageFromThisUser(el)} />
       }

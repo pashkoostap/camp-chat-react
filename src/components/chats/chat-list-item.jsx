@@ -13,6 +13,7 @@ export default class ChatListItem extends Component {
         onClick={this.selectChat}>
         <div className='left-chat-user-photo'>
           <div className='left-chat-user-photo__img' style={{ backgroundImage: 'url(assets/img/avatar__1.jpg' }}></div>
+          {/*<div className='left-chat-user-photo__img' style={{ backgroundImage: `url(${photo})` }}></div>*/}
           {/*<span className='left-chat-user-photo__message-badge'>1</span>*/}
         </div>
         <div className='left-chat-user-info'>
