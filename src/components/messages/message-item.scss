@@ -1,4 +1,3 @@
-
 // CHAT MESSAGE
 .right-chat-message {
     display: flex;
@@ -30,14 +29,14 @@
         margin: auto;
     }
     // MESSAGE DATE
-     &__date {
-        font-size: 14px;
-        line-height: 24px;
-        color: #d2d2f7;
-        display: flex;
-        width: 100%;
+    &__date {
+      font-size: 14px;
+      line-height: 24px;
+      color: #d2d2f7;
+      display: flex;
+      width: 100%;
     }
-    &__username {
+    .right-chat-message__username {
       display: flex;
       order: -1;
       width: 100%;
@@ -114,6 +113,22 @@
         margin: 0;
         display: flex;
         flex-grow: 0;
-        word-wrap: break-word;
+        word-break: break-word;
+    }
+}
+.chat-no-messages {
+    display: flex;
+    margin: auto;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    flex-grow: 100000;
+    &.hidden {
+        display: none;
     }
 }

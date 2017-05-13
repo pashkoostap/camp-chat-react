@@ -67,7 +67,6 @@ class ChatsComponent extends Component {
         })
       }
     }
-
   }
   componentWillUnmount() {
     this.props.actions.resetChats();

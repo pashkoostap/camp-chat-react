@@ -28,11 +28,6 @@ export default class MessageNew extends Component {
       </form>
     )
   }
-  componentWillReceiveProps(nextProps) {
-    if (this.props.selectedChat !== nextProps.selectedChat) {
-      console.log(nextProps.selectedChat)
-    }
-  }
   componentWillUpdate() {
     if (!this.socketInit && this.props.socket() !== undefined) {
       this.socketInit = true;

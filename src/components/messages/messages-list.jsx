@@ -7,21 +7,30 @@ export default class MessagesList extends Component {
   constructor(props) {
     super(props);
     this.msgList = null;
+    this.isNoMessages = null;
     this.isMessageFromThisUser = this.isMessageFromThisUser.bind(this);
   }
   render() {
     let { spinnerVisible } = this.props;
     return (
       <div className="right-chat-messages-wrap">
+        <span className={"chat-no-messages " + (this.isNoMessages ? "visible" : "hidden")}>There is no messages for this chat.</span>
         <ul className={"right-chat-messages " + (!spinnerVisible ? "visible" : "hidden")} ref={(msgList) => { this.msgList = msgList }}>
           {this.renderMessages()}
         </ul>
-        <Spinner visible={spinnerVisible} dark={true} text="Please wait"/>
+        <Spinner visible={spinnerVisible} dark={true} text="" />
       </div>
     )
   }
   setScrollHeight() {
     this.msgList.scrollTop = this.msgList.scrollHeight - this.msgList.offsetHeight;
+  }
+  componentWillReceiveProps(nextProps) {
+    if (!nextProps.spinnerVisible && nextProps.messages.length == 0) {
+      this.isNoMessages = true;
+    } else {
+      this.isNoMessages = false;
+    }
   }
   componentDidMount() {
     this.setScrollHeight()
