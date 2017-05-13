@@ -30,7 +30,11 @@ export default class ChatList extends Component {
   }
   renderChatList() {
     return this.props.chats.map(chat => {
-      return <ChatListItem key={chat._id} chat={chat} selectChat={this.props.selectChat} />
+      return <ChatListItem 
+        key={chat._id} 
+        chat={chat} 
+        selectChat={this.props.selectChat}
+        selectedChat={this.props.selectedChat} />
     })
   }
   render() {

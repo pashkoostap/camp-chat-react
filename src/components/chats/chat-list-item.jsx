@@ -4,13 +4,13 @@ import Styles from './chat-list-item.scss';
 export default class ChatListItem extends Component {
   constructor(props) {
     super(props);
-
     this.selectChat = this.selectChat.bind(this);
   }
   render() {
     let { chatname, photo, _id } = this.props.chat;
     return (
-      <li className='left-chat-user' onClick={() => { this.props.selectChat(_id) }}>
+      <li className={'left-chat-user ' + (this.props.selectedChat == _id ? 'active' : '')}
+        onClick={this.selectChat}>
         <div className='left-chat-user-photo'>
           <div className='left-chat-user-photo__img' style={{ backgroundImage: 'url(assets/img/avatar__1.jpg' }}></div>
           {/*<span className='left-chat-user-photo__message-badge'>1</span>*/}
@@ -24,6 +24,9 @@ export default class ChatListItem extends Component {
     )
   }
   selectChat(e) {
-    console.log(this.props.chat._id);
+    this.props.selectChat(this.props.chat._id);
+  }
+  componentWillUnmount() {
+    console.log(this.props.chat._id)
   }
 }

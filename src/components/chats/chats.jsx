@@ -28,11 +28,14 @@ class ChatsComponent extends Component {
             <ChatList
               chats={this.props.chats}
               selectChat={this.selectChat}
+              selectedChat={this.state.selectedChat}
               socket={this.props.socket} />
           </div>
 
           <div className="right-chat-wrap">
-            <ChatDetail socket={this.props.socket} selectedChat={this.state.selectedChat} />
+            <ChatDetail
+              socket={this.props.socket}
+              selectedChat={this.state.selectedChat} />
           </div>
         </div>
       </div>

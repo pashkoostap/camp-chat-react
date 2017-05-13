@@ -33,6 +33,9 @@ export default class MessageNew extends Component {
       this.socketInit = true;
       this.props.socket().on('message', msg => {
         this.props.sendMessage(msg);
+        if (msg.chatID == this.props.selectedChat) {
+          this.props.sendMessage(msg);
+        }
       })
     }
   }
