@@ -11,3 +11,4 @@ export const MESSAGE_NEW = 'MESSAGE_NEW';
 // CHATS
 export const LOAD_CHATS = 'LOAD_CHATS';
 export const RESET_CHATS = 'RESET_CHATS';
+export const NEW_CHAT = 'NEW_CHAT';

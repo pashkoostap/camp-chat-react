@@ -25,9 +25,9 @@ class ChatsComponent extends Component {
         <div className="osp-chat">
           <div className={"left-chat-wrap " + (this.state.isLeftPanelOpen ? "visible" : "hidden")}>
             <ChatNav togglePanel={this.toggleLeftPanel} />
-            <ChatList 
-              chats={this.props.chats} 
-              selectChat={this.selectChat} 
+            <ChatList
+              chats={this.props.chats}
+              selectChat={this.selectChat}
               socket={this.props.socket} />
           </div>
 
@@ -57,7 +57,17 @@ class ChatsComponent extends Component {
     if (this.props.userInfo.token) {
       let userID = this.props.userInfo.user._id;
       this.props.actions.loadChats(userID);
+      if (this.props.socket() !== undefined) {
+        this.props.socket().on('new-chat', chat => {
+          chat.users.forEach(user => {
+            if (user._id == this.props.userInfo.user._id) {
+              this.props.actions.newChat(chat)
+            }
+          })
+        })
+      }
     }
+
   }
   componentWillUnmount() {
     this.props.actions.resetChats();

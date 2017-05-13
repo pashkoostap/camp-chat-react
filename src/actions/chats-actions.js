@@ -17,9 +17,16 @@ export function loadChats(userID) {
   };
 }
 
-export function resetChats() {
+export function resetChats(chat) {
   return {
     type: types.RESET_CHATS,
     chats: []
+  }
+}
+
+export function newChat(chat) {
+  return {
+    type: types.NEW_CHAT,
+    chat
   }
 }
