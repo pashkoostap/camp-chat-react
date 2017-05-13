@@ -14,19 +14,25 @@ class ChatsComponent extends Component {
     super(props);
     this.state = {
       isLeftPanelOpen: true,
-      selectedChat: ''
+      selectedChat: '',
+      chats: []
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
     this.selectChat = this.selectChat.bind(this);
+    this.filterChatsByName = this.filterChatsByName.bind(this);
+    this.clearSearchResult = this.clearSearchResult.bind(this);
   }
   render() {
     return (
       <div className={"ct-chats visible"}>
         <div className="osp-chat">
           <div className={"left-chat-wrap " + (this.state.isLeftPanelOpen ? "visible" : "hidden")}>
-            <ChatNav togglePanel={this.toggleLeftPanel} />
+            <ChatNav
+              togglePanel={this.toggleLeftPanel}
+              filterChats={this.filterChatsByName}
+              selectedChat={this.state.selectedChat} />
             <ChatList
-              chats={this.props.chats}
+              chats={this.state.chats}
               selectChat={this.selectChat}
               selectedChat={this.state.selectedChat}
               socket={this.props.socket} />
@@ -50,6 +56,21 @@ class ChatsComponent extends Component {
         selectedChat: chatID
       }
     })
+    this.clearSearchResult();
+  }
+  filterChatsByName(chatname) {
+    if (chatname.length > 0) {
+      let chatsArr = this.state.chats.filter(chat => chat.chatname.match(new RegExp(chatname, 'gi')));
+      this.setState((state, props) => { return { chats: chatsArr } });
+    } else {
+      this.clearSearchResult();
+    }
+  }
+  clearSearchResult() {
+    this.setState((state, props) => { return { chats: this.props.chats } });
+  }
+  componentWillReceiveProps(nextProps) {
+    this.setState((state, props) => { return { chats: nextProps.chats } })
   }
   componentWillMount() {
     if (!this.props.userInfo.token) {

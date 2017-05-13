@@ -4,8 +4,12 @@ import Styles from './chat-nav.scss';
 export default class ChatNav extends Component {
   constructor(props) {
     super(props);
-    
+    this.state = {
+      searchValue: ''
+    }
+
     this.onPanelOpen = this.onPanelOpen.bind(this);
+    this.filterChats = this.filterChats.bind(this);
   }
   render() {
     return (
@@ -15,8 +19,13 @@ export default class ChatNav extends Component {
           <input
             type="text"
             className="chat-search-panel__input"
+            value={this.state.searchValue}
+            onChange={this.filterChats}
             name="search" />
-          <button type="submit" className="chat-search-panel__search-btn    osp-chat-nav-btn  chat-icon-search"></button>
+          <button
+            type="submit"
+            className="chat-search-panel__search-btn    osp-chat-nav-btn  chat-icon-search"
+            onClick={(e) => { e.preventDefault() }}></button>
         </form>
         <button className="left-chat-nav__menu  osp-chat-nav-btn" ></button >
         <ul className="osp-chat-menu  hidden">
@@ -30,6 +39,19 @@ export default class ChatNav extends Component {
         </ul >
       </nav >
     )
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.selectedChat) {
+      this.setState((state, props) => { return { searchValue: '' } })
+    }
+  }
+  clearSearch() {
+    this.setState((state, props))
+  }
+  filterChats(e) {
+    let searchValue = e.target.value;
+    this.setState({ searchValue: e.target.value, clearSearch: false })
+    this.props.filterChats(searchValue);
   }
   onPanelOpen(e) {
     e.target.classList.toggle('active');
