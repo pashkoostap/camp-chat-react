@@ -21,11 +21,12 @@ class ChatDetail extends Component {
   render() {
     return (
       <div className="ct-chat-detail">
-        <h3 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h3>
+        <h1 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h1>
         <MessagesList
           spinnerVisible={this.state.spinnerVisible}
           messages={this.props.messages}
-          user={this.props.userInfo} />
+          user={this.props.userInfo}
+          selectedChat={this.props.selectedChat} />
         <MessageNew
           visible={this.state.selectedChat}
           sendMessage={this.sendNewMessage}

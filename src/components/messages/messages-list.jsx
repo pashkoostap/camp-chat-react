@@ -11,10 +11,10 @@ export default class MessagesList extends Component {
     this.isMessageFromThisUser = this.isMessageFromThisUser.bind(this);
   }
   render() {
-    let { spinnerVisible } = this.props;
+    let { spinnerVisible, selectedChat } = this.props;
     return (
       <div className="right-chat-messages-wrap">
-        <span className={"chat-no-messages " + (this.isNoMessages ? "visible" : "hidden")}>There is no messages for this chat.</span>
+        <span className={"chat-no-messages " + (this.isNoMessages && selectedChat ? "visible" : "hidden")}>There is no messages for this chat.</span>
         <ul className={"right-chat-messages " + (!spinnerVisible ? "visible" : "hidden")} ref={(msgList) => { this.msgList = msgList }}>
           {this.renderMessages()}
         </ul>
