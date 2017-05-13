@@ -114,6 +114,14 @@
         display: flex;
         flex-grow: 0;
         word-break: break-word;
+        a {
+            color: #3b3e99;
+            margin: 0px 3px;
+            transition: opacity 0.2s ease;
+            &:hover {
+              opacity: 0.5;
+            }
+        }
     }
 }
 .chat-no-messages {
