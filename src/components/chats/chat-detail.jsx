@@ -7,6 +7,7 @@ import * as messagesActions from '../../actions/messages-actions';
 import Styles from './chat-detail.scss';
 import MessageNew from '../messages/message-new';
 import MessagesList from '../messages/messages-list';
+import ChatInfo from './chat-info';
 
 class ChatDetail extends Component {
   constructor(props) {
@@ -21,6 +22,9 @@ class ChatDetail extends Component {
   render() {
     return (
       <div className="ct-chat-detail">
+        <ChatInfo
+          visible={this.state.selectedChat}
+          chat={this.props.chat} />
         <h1 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h1>
         <MessagesList
           spinnerVisible={this.state.spinnerVisible}

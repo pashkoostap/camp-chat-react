@@ -15,7 +15,8 @@ class ChatsComponent extends Component {
     this.state = {
       isLeftPanelOpen: true,
       selectedChat: '',
-      chats: []
+      chats: [],
+      activeChat: null
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
     this.selectChat = this.selectChat.bind(this);
@@ -41,7 +42,8 @@ class ChatsComponent extends Component {
           <div className="right-chat-wrap">
             <ChatDetail
               socket={this.props.socket}
-              selectedChat={this.state.selectedChat} />
+              selectedChat={this.state.selectedChat}
+              chat={this.state.activeChat} />
           </div>
         </div>
       </div>
@@ -51,9 +53,11 @@ class ChatsComponent extends Component {
     this.setState({ isLeftPanelOpen: !this.state.isLeftPanelOpen });
   }
   selectChat(chatID) {
+    let chat = this.state.chats.filter(chat => chat._id == chatID)[0];
     this.setState((state, props) => {
       return {
-        selectedChat: chatID
+        selectedChat: chatID,
+        activeChat: chat
       }
     })
     this.clearSearchResult();
