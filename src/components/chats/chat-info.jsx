@@ -5,14 +5,24 @@ class ChatInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maxWidth: 100
+      maxWidth: 100,
+      chatInfoVisible: true,
+      searchInputVisible: true
     }
     this.renderAttendeesList = this.renderAttendeesList.bind(this);
     this.setAttendessWrapWidth = this.setAttendessWrapWidth.bind(this);
+    this.chatInfoWrapShow = this.chatInfoWrapShow.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     // console.log(nextProps.chat);
+  }
+
+  componentDidUpdate() {
+    let maxWidth = this.setAttendessWrapWidth(this.props.chat.users, 50, 30);
+    if (this.state.maxWidth != maxWidth) {
+      this.setState((state, props) => { return { maxWidth } })
+    }
   }
 
   renderAttendeesList(chat) {
@@ -25,10 +35,14 @@ class ChatInfo extends React.Component {
     }
   }
 
-  componentDidUpdate() {
-    let maxWidth = this.setAttendessWrapWidth(this.props.chat.users, 50, 30);
-    if (this.state.maxWidth != maxWidth) {
-      this.setState((state, props) => { return { maxWidth } })
+  chatInfoWrapShow(e) {
+    let btn = e.target;
+    this.setState({chatInfoVisible: !this.state.chatInfoVisible});
+    btn.classList.toggle('clicked');
+    if (btn.classList.contains('clicked')) {
+      btn.innerText = 'Hide chat info';
+    } else {
+      btn.innerText = 'Show chat info';
     }
   }
 
@@ -43,8 +57,8 @@ class ChatInfo extends React.Component {
   render() {
     let { visible, chat } = this.props;
     return (
-      <div className={'chan-info-wrap  visible ' + (visible ? ' ' : ' hidden')}>
-        <button type='button' className='chan-info-wrap__show-btn  chat-btn  clicked'>Hide chat info</button>
+      <div className={'chan-info-wrap  ' + (visible ? ' ' : ' hidden') + (this.state.chatInfoVisible ? ' visible' : ' ')}>
+        <button type='button' className='chan-info-wrap__show-btn  chat-btn  clicked' onClick={this.chatInfoWrapShow}>Hide chat info</button>
         <ul className='chat-info-attendees' style={{ maxWidth: this.state.maxWidth }}>
           {this.renderAttendeesList(chat)}
         </ul >
