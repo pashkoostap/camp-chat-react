@@ -7,11 +7,12 @@ class ChatInfo extends React.Component {
     this.state = {
       maxWidth: 100,
       chatInfoVisible: true,
-      searchInputVisible: true
+      searchFieldVisible: true
     }
     this.renderAttendeesList = this.renderAttendeesList.bind(this);
     this.setAttendessWrapWidth = this.setAttendessWrapWidth.bind(this);
     this.chatInfoWrapShow = this.chatInfoWrapShow.bind(this);
+    this.searchFieldOpen = this.searchFieldOpen.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +38,7 @@ class ChatInfo extends React.Component {
 
   chatInfoWrapShow(e) {
     let btn = e.target;
-    this.setState({chatInfoVisible: !this.state.chatInfoVisible});
+    this.setState({ chatInfoVisible: !this.state.chatInfoVisible });
     btn.classList.toggle('clicked');
     if (btn.classList.contains('clicked')) {
       btn.innerText = 'Hide chat info';
@@ -54,17 +55,27 @@ class ChatInfo extends React.Component {
     }
   }
 
+  searchFieldOpen(e) {
+    this.setState({ searchFieldVisible: !this.state.searchFieldVisible })
+  }
+
   render() {
     let { visible, chat } = this.props;
     return (
       <div className={'chan-info-wrap  ' + (visible ? ' ' : ' hidden') + (this.state.chatInfoVisible ? ' visible' : ' ')}>
-        <button type='button' className='chan-info-wrap__show-btn  chat-btn  clicked' onClick={this.chatInfoWrapShow}>Hide chat info</button>
+        <button
+          type='button'
+          className='chan-info-wrap__show-btn  chat-btn  clicked'
+          onClick={this.chatInfoWrapShow}>Hide chat info</button>
         <ul className='chat-info-attendees' style={{ maxWidth: this.state.maxWidth }}>
           {this.renderAttendeesList(chat)}
         </ul >
         <span className='chat-info__chat-name'>{chat ? chat.chatname : ''}</span>
-        <div className='chat-info-search  visible' >
-          <button type='button' className='chat-info-search__btn  chat-btn  chat-icon-search'></button>
+        <div className={'chat-info-search ' + (this.state.searchFieldVisible ? ' visible' : ' ')} >
+          <button
+            type='button'
+            className='chat-info-search__btn  chat-btn  chat-icon-search'
+            onClick={this.searchFieldOpen}></button>
           <input type='text'
             className='chat-info-search__input'
             placeholder='Search...'
