@@ -31,6 +31,7 @@ class ChatInfo extends React.Component {
       return chat.users.map((user, i) => {
         return (
           <li key={user._id} className={'chat-info-attendees__user  user__' + i}></li>
+          // <li key={user._id} className={'chat-info-attendees__user  user__' + i} style={{ backgroundImage: `url(${user.photo})` }}></li>
         )
       })
     }
