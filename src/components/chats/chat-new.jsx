@@ -4,11 +4,11 @@ import styles from './chat-new.scss';
 class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
-
+    this.renderUsersList = this.renderUsersList.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log(nextProps)
+    console.log(nextProps)
   }
 
   render() {
@@ -16,10 +16,8 @@ class ChatNew extends Component {
       <div className={'modal-window-wrap' + (this.props.visible ? ' visible' : ' hidden')}>
         <div className='modal-window-inner  new-chat-inner'>
           <button className='modal-window-inner__close  chat-icon-close' onClick={() => { this.props.hideNewChat() }}></button>
-          <h1 className='new-chat-title'>Create new chat</h1>
           <form className='new-chat-form'>
             <input type='text' className='new-chat-form__input' placeholder='Enter chat name' />
-            <span className='new-chat-form__hint'>Chat name must be at least 5 characters</span>
 
             <label className='new-chat-form__input  new-chat-form__input--label-file'>
               Upload photo
@@ -34,9 +32,7 @@ class ChatNew extends Component {
             </div>
 
             <ul className='new-chat-users'>
-              <li className='new-chat-user'>
-                <span className='new-chat-user__info'>text</span>
-              </li>
+              {this.renderUsersList()}
             </ul>
 
             <button type='submit' className='new-chat-form__btn'>Create new chat</button>
@@ -44,6 +40,22 @@ class ChatNew extends Component {
         </div>
       </div>
     );
+  }
+  renderUsersList() {
+    let { users } = this.props;
+    let username = this.props.user.user.username;
+    if (users) {
+      return users.map(user => {
+        if (username) {
+          return (
+            <li className='new-chat-user' key={user._id}>
+              <div className='new-chat-user__photo' style={{ backgroundImage: `url(${user.photo})` }}></div>
+              <span className='new-chat-user__info'>{user.username}</span>
+            </li>
+          )
+        }
+      })
+    }
   }
 }
 

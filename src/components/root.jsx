@@ -46,7 +46,8 @@ class RootComponent extends Component {
             <Route path='/chat' component={() => {
               return (
                 <Chats
-                  socket={this.getSocket} />
+                  socket={this.getSocket}
+                  user={this.props.userInfo} />
               )
             }} />
           </Switch>

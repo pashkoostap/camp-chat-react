@@ -64,7 +64,8 @@ class ChatsComponent extends Component {
         <ChatNew
           users={this.props.users}
           visible={this.state.isNewChatWindowOpen}
-          hideNewChat={this.hideNewChatWindow} />
+          hideNewChat={this.hideNewChatWindow}
+          user={this.props.user} />
       </div>
     )
   }
