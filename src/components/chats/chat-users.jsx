@@ -9,9 +9,9 @@ class ChatUsers extends React.Component {
 
   render() {
     return (
-      <div className={'app-chat-users-wrap' + (this.props.visible ? ' visible' : ' hidden')}>
-        <div className='app-chat-users'>
-          <button className='app-chat-users__close  chat-icon-close' onClick={() => { this.props.close() }}></button>
+      <div className={'modal-window-wrap' + (this.props.visible ? ' visible' : ' hidden')}>
+        <div className='modal-window-inner  app-chat-users'>
+          <button className='modal-window-inner__close  chat-icon-close' onClick={() => { this.props.close() }}></button>
           <ul className='app-chat-users-list'>
             {this.renderUsers()}
           </ul >

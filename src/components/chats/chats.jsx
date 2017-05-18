@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
+import { API_CONFIG } from '../../api/api-config';
+import * as chatActions from '../../actions/chats-actions';
+import * as usersActions from '../../actions/users-actions';
+
 import Styles from './chats.scss';
 import ChatNav from './chat-nav';
 import ChatList from './chat-list';
 import ChatDetail from './chat-detail';
-import { API_CONFIG } from '../../api/api-config';
-import * as chatActions from '../../actions/chats-actions';
+import ChatNew from './chat-new';
 
 class ChatsComponent extends Component {
   constructor(props) {
@@ -16,12 +20,18 @@ class ChatsComponent extends Component {
       isLeftPanelOpen: true,
       selectedChat: '',
       chats: [],
-      activeChat: null
+      activeChat: null,
+      isChatMenuOpen: false,
+      isNewChatWindowOpen: false
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
     this.selectChat = this.selectChat.bind(this);
     this.filterChatsByName = this.filterChatsByName.bind(this);
     this.clearSearchResult = this.clearSearchResult.bind(this);
+    this.toggleChatMenu = this.toggleChatMenu.bind(this);
+    this.hideChatMenu = this.hideChatMenu.bind(this);
+    this.showNewChatWindow = this.showNewChatWindow.bind(this);
+    this.hideNewChatWindow = this.hideNewChatWindow.bind(this);
   }
   render() {
     return (
@@ -32,7 +42,11 @@ class ChatsComponent extends Component {
               togglePanel={this.toggleLeftPanel}
               filterChats={this.filterChatsByName}
               selectedChat={this.state.selectedChat}
-              socket={this.props.socket} />
+              socket={this.props.socket}
+              hideChatMenu={this.hideChatMenu}
+              toggleChatMenu={this.toggleChatMenu}
+              isChatMenuOpen={this.state.isChatMenuOpen}
+              showNewChat={this.showNewChatWindow} />
             <ChatList
               chats={this.state.chats}
               selectChat={this.selectChat}
@@ -47,6 +61,10 @@ class ChatsComponent extends Component {
               chat={this.state.activeChat} />
           </div>
         </div>
+        <ChatNew
+          users={this.props.users}
+          visible={this.state.isNewChatWindowOpen}
+          hideNewChat={this.hideNewChatWindow} />
       </div>
     )
   }
@@ -74,6 +92,18 @@ class ChatsComponent extends Component {
   clearSearchResult() {
     this.setState((state, props) => { return { chats: this.props.chats } });
   }
+  toggleChatMenu() {
+    this.setState({ isChatMenuOpen: !this.state.isChatMenuOpen })
+  }
+  hideChatMenu() {
+    this.setState({ isChatMenuOpen: false })
+  }
+  showNewChatWindow() {
+    this.setState({ isNewChatWindowOpen: true, isChatMenuOpen: false })
+  }
+  hideNewChatWindow() {
+    this.setState({ isNewChatWindowOpen: false })
+  }
   componentWillReceiveProps(nextProps) {
     this.setState((state, props) => { return { chats: nextProps.chats } })
   }
@@ -86,6 +116,9 @@ class ChatsComponent extends Component {
     if (this.props.userInfo.token) {
       let userID = this.props.userInfo.user._id;
       this.props.actions.loadChats(userID);
+      this.props.actions.loadUsers((users) => {
+        // console.log(users)
+      });
       if (this.props.socket() !== undefined) {
         this.props.socket().on('new-chat', chat => {
           this.props.actions.newChat(chat);
@@ -100,20 +133,23 @@ class ChatsComponent extends Component {
   }
   componentWillUnmount() {
     this.props.actions.resetChats();
+    this.props.actions.resetUsers();
   }
 }
 
 function mapStateToProps(state, ownProps) {
   return {
     userInfo: state.userInfo,
-    chats: state.chats
+    chats: state.chats,
+    users: state.users
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(chatActions, dispatch)
+    actions: bindActionCreators({ ...chatActions, ...usersActions }, dispatch)
   };
 }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ChatsComponent));
+

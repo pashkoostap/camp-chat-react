@@ -13,7 +13,7 @@ export function loadUsers(callback) {
     return window.fetch(`${API_CONFIG.USERS}`)
       .then(res => res.json())
       .then(users => {
-        callback()
+        callback(users)
         dispatch({
           type: types.LOAD_USERS,
           users
