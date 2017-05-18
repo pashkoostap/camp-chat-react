@@ -16,15 +16,20 @@ class ChatDetail extends Component {
     this.state = {
       isMessagesLoading: false,
       selectedChat: '',
-      spinnerVisible: false
+      spinnerVisible: false,
+      connectedUsers: null
     }
+    this.subscribeToSocketEvents = this.subscribeToSocketEvents.bind(this);
+    this.updateConnectedUsers = this.updateConnectedUsers.bind(this);
   }
+
   render() {
     return (
       <div className="ct-chat-detail">
         <ChatInfo
           visible={this.state.selectedChat}
-          chat={this.props.chat} />
+          chat={this.props.chat}
+          connectedUsers={this.state.connectedUsers} />
         <h1 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h1>
         <MessagesList
           spinnerVisible={this.state.spinnerVisible}
@@ -39,8 +44,24 @@ class ChatDetail extends Component {
       </div>
     )
   }
+
+  updateConnectedUsers(connectedUsers) {
+    this.setState((state, props) => { return { connectedUsers } })
+  }
+
+  subscribeToSocketEvents(socket) {
+    if (socket != undefined) {
+      socket.on('join', res => {
+        this.updateConnectedUsers(res.connectedUsers)
+      })
+      socket.on('leave', res => {
+        this.updateConnectedUsers(res.connectedUsers)
+      })
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    let { selectedChat } = nextProps;
+    let { selectedChat, socket } = nextProps;
     if (selectedChat && selectedChat !== this.state.selectedChat) {
       if (!this.state.isMessagesLoading) {
         this.setState((state, props) => {
@@ -61,9 +82,15 @@ class ChatDetail extends Component {
       }
     }
   }
+
+  componentDidMount() {
+    this.subscribeToSocketEvents(this.props.socket())
+  }
+
   componentWillUnmount() {
     this.props.actions.resetMessages();
   }
+
   sendNewMessage(msg) {
     if (this.state.selectedChat == msg.chatID) {
       this.props.actions.createMessage(msg);

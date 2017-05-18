@@ -31,7 +31,8 @@ class ChatsComponent extends Component {
             <ChatNav
               togglePanel={this.toggleLeftPanel}
               filterChats={this.filterChatsByName}
-              selectedChat={this.state.selectedChat} />
+              selectedChat={this.state.selectedChat}
+              socket={this.props.socket} />
             <ChatList
               chats={this.state.chats}
               selectChat={this.selectChat}

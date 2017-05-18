@@ -19,14 +19,12 @@ class ChatInfo extends React.Component {
     this.openChatUsers = this.openChatUsers.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log(nextProps.chat);
-  }
-
   componentDidUpdate() {
-    let maxWidth = this.setAttendessWrapWidth(this.props.chat.users, 50, 30);
-    if (this.state.maxWidth != maxWidth) {
-      this.setState((state, props) => { return { maxWidth } })
+    if (this.props.chat) {
+      let maxWidth = this.setAttendessWrapWidth(this.props.chat.users, 50, 30);
+      if (this.state.maxWidth != maxWidth) {
+        this.setState((state, props) => { return { maxWidth } })
+      }
     }
   }
 
@@ -102,7 +100,8 @@ class ChatInfo extends React.Component {
         <ChatUsers
           visible={this.state.chatUsersVisible}
           close={this.closeChatUsers}
-          chat={chat} />
+          chat={chat}
+          connectedUsers={this.props.connectedUsers} />
       </div>
     );
   }

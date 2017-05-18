@@ -27,7 +27,4 @@ export default class ChatListItem extends Component {
   selectChat(e) {
     this.props.selectChat(this.props.chat._id);
   }
-  componentWillUnmount() {
-    console.log(this.props.chat._id)
-  }
 }
