@@ -21,11 +21,13 @@ class ChatUsers extends React.Component {
   }
 
   isUserOnline(user, connectedUsers) {
-    let isUserConnected = connectedUsers.filter(connectedUser => connectedUser.username == user.username)[0];
-    if (isUserConnected) {
-      return <span className="app-chat-users-list__status online">online</span>
-    } else {
-      return <span className="app-chat-users-list__status offline">offline</span>
+    if (connectedUsers) {
+      let isUserConnected = connectedUsers.filter(connectedUser => connectedUser.username == user.username)[0];
+      if (isUserConnected) {
+        return <span className="app-chat-users-list__status online">online</span>
+      } else {
+        return <span className="app-chat-users-list__status offline">offline</span>
+      }
     }
   }
 
