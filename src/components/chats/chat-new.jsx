@@ -17,7 +17,8 @@ class ChatNew extends Component {
       photoURL: '',
       isChatNameValid: null,
       isChatNameTouched: false,
-      isSelectedUsersValid: false
+      isSelectedUsersValid: false,
+      filterValue: ''
     }
     this.renderUsersList = this.renderUsersList.bind(this);
     this.onAddUser = this.onAddUser.bind(this);
@@ -46,12 +47,18 @@ class ChatNew extends Component {
             <span className='new-chat-form__hint'>{this.state.photoLoadingHint}</span>
 
             <div className='new-chat-form-search'>
-              <input type='text' className='new-chat-form__input  filter' placeholder='Search user by name' />
-              <button type='button' className='new-chat-form-search__btn  chat-btn  chat-icon-close'></button>
+              <input
+                type='text'
+                className='new-chat-form__input  filter'
+                name='filter-users'
+                value={this.state.filterValue}
+                placeholder='Search user by name'
+                onChange={(e) => { this.setState({ filterValue: e.target.value }) }} />
+              <button type='button' className='new-chat-form-search__btn  chat-btn  chat-icon-close' onClick={(e) => { this.setState({ filterValue: '' }) }}></button>
             </div>
 
             <ul className='new-chat-users'>
-              {this.renderUsersList()}
+              {this.renderUsersList(this.state.filterValue)}
             </ul>
 
             <button type='submit' className='new-chat-form__btn' disabled={!this.state.isChatNameValid || !this.state.isSelectedUsersValid}>Create new chat</button>
@@ -61,7 +68,7 @@ class ChatNew extends Component {
     );
   }
 
-  renderUsersList() {
+  renderUsersList(filterValue) {
     let { users, user } = this.props;
     if (users) {
       let username;
@@ -69,7 +76,7 @@ class ChatNew extends Component {
         username = user.user.username;
       }
       return users.map(user => {
-        if (username != user.username) {
+        if (username != user.username && user.username.match(new RegExp(filterValue, 'gi'))) {
           return (
             <li className='new-chat-user' key={user._id} onClick={(e) => { this.onAddUser(e, user) }}>
               <div className='new-chat-user__photo' style={{ backgroundImage: `url(${user.photo})` }}></div>
@@ -100,11 +107,9 @@ class ChatNew extends Component {
     if (selectedEl.classList.contains('selected')) {
       users.push(userObj);
       this.setUsersState(users, users.length > 0);
-      console.log(users.length > 0)
     } else {
       users.splice(userObj, 1);
       this.setUsersState(users, users.length > 0);
-      console.log(users.length > 0)
     }
   }
 
