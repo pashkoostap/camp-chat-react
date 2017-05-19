@@ -4,7 +4,14 @@ import styles from './chat-new.scss';
 class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
+    this.state = {
+      newChat: {
+        users: []
+      }
+    }
     this.renderUsersList = this.renderUsersList.bind(this);
+    this.onAddUser = this.onAddUser.bind(this);
+    this.setUsersState = this.setUsersState.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -50,13 +57,37 @@ class ChatNew extends Component {
       return users.map(user => {
         if (username != user.username) {
           return (
-            <li className='new-chat-user' key={user._id}>
+            <li className='new-chat-user' key={user._id} onClick={(e) => { this.onAddUser(e, user) }}>
               <div className='new-chat-user__photo' style={{ backgroundImage: `url(${user.photo})` }}></div>
               <span className='new-chat-user__info'>{user.username}</span>
             </li>
           )
         }
       })
+    }
+  }
+
+  setUsersState(users) {
+    this.setState((state, props) => {
+      return {
+        newChat: {
+          users
+        }
+      }
+    })
+  }
+
+  onAddUser(e, user) {
+    let selectedEl = e.target;
+    let userObj = { username: user.username };
+    let users = this.state.newChat.users;
+    selectedEl.classList.toggle('selected');
+    if (selectedEl.classList.contains('selected')) {
+      users.push(userObj);
+      this.setUsersState(users);
+    } else {
+      users.splice(userObj, 1);
+      this.setUsersState(users);
     }
   }
 }

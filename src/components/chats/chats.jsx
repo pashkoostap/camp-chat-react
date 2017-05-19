@@ -22,7 +22,7 @@ class ChatsComponent extends Component {
       chats: [],
       activeChat: null,
       isChatMenuOpen: false,
-      isNewChatWindowOpen: false
+      isNewChatWindowOpen: true
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
     this.selectChat = this.selectChat.bind(this);
