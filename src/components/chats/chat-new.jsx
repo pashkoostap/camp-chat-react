@@ -8,7 +8,6 @@ class ChatNew extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
   }
 
   render() {
@@ -42,11 +41,14 @@ class ChatNew extends Component {
     );
   }
   renderUsersList() {
-    let { users } = this.props;
-    let username = this.props.user.user.username;
+    let { users, user } = this.props;
     if (users) {
+      let username;
+      if (user.user) {
+        username = user.user.username;
+      }
       return users.map(user => {
-        if (username) {
+        if (username != user.username) {
           return (
             <li className='new-chat-user' key={user._id}>
               <div className='new-chat-user__photo' style={{ backgroundImage: `url(${user.photo})` }}></div>

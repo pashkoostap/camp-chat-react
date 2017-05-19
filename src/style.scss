@@ -174,7 +174,7 @@ ct-spinner,
     right: 0;
     bottom: 0;
     z-index: 2;
-    background-image: url('/assets/img/intro.png');
+    background-image: url('/assets/img/intro-bg.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -186,7 +186,6 @@ ct-spinner,
     transform: translate(-50%, -50%);
     z-index: 1;
     width: 86%;
-    height: 80%;
     border: 2px solid #000;
   }
 }

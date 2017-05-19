@@ -13,7 +13,8 @@ class HomePage extends Component {
             <source src='assets/video/intro.webm' type='video/webm' />
           </video>*/}
           {/*<iframe src="https://www.youtube.com/embed/No3VUocaWMo?autoplay=1&controls=0&loop=1&showinfo=0&modestbranding=1&iv_load_policy=3&rel=0" className='intro-wrap__video' frameBorder="0"></iframe>*/}
-          <iframe src="https://player.vimeo.com/video/217970872?autoplay=1&amp;loop=1&amp;" className='intro-wrap__video' frameBorder="0"></iframe>
+          {/*<iframe src="https://player.vimeo.com/video/217970872?autoplay=1&amp;loop=1&amp;" className='intro-wrap__video' frameBorder="0"></iframe>*/}
+          <img src="assets/img/intro-video.gif" className='intro-wrap__video' alt="" />
         </div>
       </div>
     )
