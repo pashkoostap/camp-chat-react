@@ -22,7 +22,7 @@ class ChatsComponent extends Component {
       chats: [],
       activeChat: null,
       isChatMenuOpen: false,
-      isNewChatWindowOpen: true
+      isNewChatWindowOpen: false
     }
     this.toggleLeftPanel = this.toggleLeftPanel.bind(this);
     this.selectChat = this.selectChat.bind(this);
@@ -32,6 +32,7 @@ class ChatsComponent extends Component {
     this.hideChatMenu = this.hideChatMenu.bind(this);
     this.showNewChatWindow = this.showNewChatWindow.bind(this);
     this.hideNewChatWindow = this.hideNewChatWindow.bind(this);
+    this.emitNewChat = this.emitNewChat.bind(this);
   }
   render() {
     return (
@@ -65,7 +66,8 @@ class ChatsComponent extends Component {
           users={this.props.users}
           visible={this.state.isNewChatWindowOpen}
           hideNewChat={this.hideNewChatWindow}
-          user={this.props.user} />
+          user={this.props.user}
+          emitNewChat={this.emitNewChat} />
       </div>
     )
   }
@@ -122,7 +124,6 @@ class ChatsComponent extends Component {
       });
       if (this.props.socket() !== undefined) {
         this.props.socket().on('new-chat', chat => {
-          console.log('NEW-CHAT', chat)
           this.props.actions.newChat(chat);
           chat.users.forEach(user => {
             if (user._id == this.props.userInfo.user._id) {
@@ -132,6 +133,9 @@ class ChatsComponent extends Component {
         })
       }
     }
+  }
+  emitNewChat(chat) {
+    this.props.socket().emit('new-chat', chat);
   }
   componentWillUnmount() {
     this.props.actions.resetChats();

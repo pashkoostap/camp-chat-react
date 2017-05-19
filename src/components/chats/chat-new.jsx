@@ -203,7 +203,6 @@ class ChatNew extends Component {
       },
       body
     }
-    console.log(newChat)
     window.fetch(API_CONFIG.NEW_CHAT, init)
       .then(res => res.json())
       .then(resObj => {
@@ -216,13 +215,14 @@ class ChatNew extends Component {
           })
           this.clearUsersList();
         } else {
-          console.log(resObj);
+          this.props.emitNewChat(resObj.chat);
           this.clearChatForm();
           this.clearUsersList();
+          this.props.hideNewChat();
         }
       })
       .catch(err => {
-
+        console.log(err);
       })
   }
   clearChatForm() {
