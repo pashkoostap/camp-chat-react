@@ -122,6 +122,7 @@ class ChatsComponent extends Component {
       });
       if (this.props.socket() !== undefined) {
         this.props.socket().on('new-chat', chat => {
+          console.log('NEW-CHAT', chat)
           this.props.actions.newChat(chat);
           chat.users.forEach(user => {
             if (user._id == this.props.userInfo.user._id) {

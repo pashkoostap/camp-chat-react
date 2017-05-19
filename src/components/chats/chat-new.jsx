@@ -8,23 +8,27 @@ class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      newChat: {
-        users: []
-      },
+      users: [],
+      chatname: '',
+      photo: '',
       photoLoadingHint: '',
       isPhotoLoading: false,
       labelFileInputValut: 'Upload photo',
-      photoURL: '',
       isChatNameValid: null,
       isChatNameTouched: false,
       isSelectedUsersValid: false,
-      filterValue: ''
+      filterValue: '',
+      isChatNameAlreadyUsed: false
     }
+    this.usersList;
     this.renderUsersList = this.renderUsersList.bind(this);
     this.onAddUser = this.onAddUser.bind(this);
     this.setUsersState = this.setUsersState.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
     this.validateChatName = this.validateChatName.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.clearChatForm = this.clearChatForm.bind(this);
+    this.clearUsersList = this.clearUsersList.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,8 +40,16 @@ class ChatNew extends Component {
         <div className='modal-window-inner  new-chat-inner'>
           <button className='modal-window-inner__close  chat-icon-close' onClick={() => { this.props.hideNewChat() }}></button>
           <form className='new-chat-form'>
-            <input type='text' className='new-chat-form__input' placeholder='Enter chat name' onBlur={this.validateChatName} />
+            <input
+              type='text'
+              name='chatname'
+              className='new-chat-form__input'
+              placeholder='Enter chat name'
+              value={this.state.chatname}
+              onChange={(e) => { this.setState({ chatname: e.target.value }) }}
+              onBlur={this.validateChatName} />
             <span className={'new-chat-form__hint' + (this.state.isChatNameValid || !this.state.isChatNameTouched ? ' hidden' : ' ')}>Chat name must be at least 6 characters</span>
+            <span className={'new-chat-form__hint' + (!this.state.isChatNameAlreadyUsed ? ' hidden' : ' ')}>This chatname is already used</span>
 
             <label className='new-chat-form__input  new-chat-form__input--label-file' onChange={(e) => { this.onFileUpload(e) }}>
               {this.state.labelFileInputValut}
@@ -57,11 +69,15 @@ class ChatNew extends Component {
               <button type='button' className='new-chat-form-search__btn  chat-btn  chat-icon-close' onClick={(e) => { this.setState({ filterValue: '' }) }}></button>
             </div>
 
-            <ul className='new-chat-users'>
+            <ul className='new-chat-users' ref={(usersList) => { this.usersList = usersList }}>
               {this.renderUsersList(this.state.filterValue)}
             </ul>
 
-            <button type='submit' className='new-chat-form__btn' disabled={!this.state.isChatNameValid || !this.state.isSelectedUsersValid}>Create new chat</button>
+            <button
+              type='submit'
+              className='new-chat-form__btn'
+              disabled={!this.state.isChatNameValid || !this.state.isSelectedUsersValid}
+              onClick={this.onSubmit}>Create new chat</button>
           </form>
         </div>
       </div>
@@ -88,12 +104,16 @@ class ChatNew extends Component {
     }
   }
 
+  clearUsersList() {
+    this.usersList.querySelectorAll('.new-chat-user').forEach(user => {
+      user.classList.remove('selected');
+    })
+  }
+
   setUsersState(users, isValid) {
     this.setState((state, props) => {
       return {
-        newChat: {
-          users
-        },
+        users,
         isSelectedUsersValid: isValid
       }
     })
@@ -102,7 +122,7 @@ class ChatNew extends Component {
   onAddUser(e, user) {
     let selectedEl = e.target;
     let userObj = { username: user.username };
-    let users = this.state.newChat.users;
+    let users = this.state.users;
     selectedEl.classList.toggle('selected');
     if (selectedEl.classList.contains('selected')) {
       users.push(userObj);
@@ -141,7 +161,7 @@ class ChatNew extends Component {
             this.setState((state, props) => {
               return {
                 photoLoadingHint: 'Photo was successfully uploaded',
-                photoURL: resObj.secure_url
+                photo: resObj.secure_url
               }
             })
           })
@@ -162,6 +182,63 @@ class ChatNew extends Component {
       return {
         isChatNameValid: isValid,
         isChatNameTouched: true
+      }
+    })
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+    let thisUserName = this.props.user.user.username;
+    let newChat = {
+      chatname: this.state.chatname,
+      users: this.state.users,
+      photo: this.state.photo
+    };
+    newChat.users.push({ username: thisUserName });
+    let body = JSON.stringify(newChat);
+    let init = {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      },
+      body
+    }
+    console.log(newChat)
+    window.fetch(API_CONFIG.NEW_CHAT, init)
+      .then(res => res.json())
+      .then(resObj => {
+        if (resObj.status == 400) {
+          this.setState((state, props) => {
+            return {
+              isChatNameAlreadyUsed: true,
+              users: []
+            }
+          })
+          this.clearUsersList();
+        } else {
+          console.log(resObj);
+          this.clearChatForm();
+          this.clearUsersList();
+        }
+      })
+      .catch(err => {
+
+      })
+  }
+  clearChatForm() {
+    this.setState((state, props) => {
+      return {
+        users: [],
+        chatname: '',
+        photo: '',
+        photoLoadingHint: '',
+        isPhotoLoading: false,
+        labelFileInputValut: 'Upload photo',
+        isChatNameValid: null,
+        isChatNameTouched: false,
+        isSelectedUsersValid: false,
+        filterValue: '',
+        isChatNameAlreadyUsed: false
       }
     })
   }
