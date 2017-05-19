@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import styles from './chat-new.scss';
 
+import { API_CONFIG } from '../../api/api-config';
+
 class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
       newChat: {
         users: []
-      }
+      },
+      photoLoadingHint: '',
+      isPhotoLoading: false,
+      labelFileInputValut: 'Upload photo',
+      photoURL: ''
     }
     this.renderUsersList = this.renderUsersList.bind(this);
     this.onAddUser = this.onAddUser.bind(this);
     this.setUsersState = this.setUsersState.bind(this);
+    this.onFileUpload = this.onFileUpload.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,12 +32,12 @@ class ChatNew extends Component {
           <form className='new-chat-form'>
             <input type='text' className='new-chat-form__input' placeholder='Enter chat name' />
 
-            <label className='new-chat-form__input  new-chat-form__input--label-file'>
-              Upload photo
-            <input type='file' className='new-chat-form__input  new-chat-form__input--file' />
+            <label className='new-chat-form__input  new-chat-form__input--label-file' onChange={(e) => { this.onFileUpload(e) }}>
+              {this.state.labelFileInputValut}
+              <input type='file' className='new-chat-form__input  new-chat-form__input--file' />
             </label>
 
-            <span className='new-chat-form__hint'></span>
+            <span className='new-chat-form__hint'>{this.state.photoLoadingHint}</span>
 
             <div className='new-chat-form-search'>
               <input type='text' className='new-chat-form__input  filter' placeholder='Search user by name' />
@@ -88,6 +95,49 @@ class ChatNew extends Component {
     } else {
       users.splice(userObj, 1);
       this.setUsersState(users);
+    }
+  }
+
+  onFileUpload(event) {
+    let input = event.target;
+    let file = input.files[0];
+    if (file.type.match('image/*')) {
+      this.setState((state, props) => {
+        return {
+          isPhotoLoading: true,
+          photoLoadingHint: 'Photo is uploading now',
+          labelFileInputValut: file.name
+        }
+      })
+      let reader = new FileReader();
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        let body = JSON.stringify({ image: reader.result });
+        let init = {
+          method: 'post',
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          },
+          body
+        }
+        window.fetch(API_CONFIG.UPLOAD_IMAGE, init)
+          .then(res => res.json())
+          .then(resObj => {
+            this.setState((state, props) => {
+              return {
+                photoLoadingHint: 'Photo was successfully uploaded',
+                photoURL: resObj.secure_url
+              }
+            })
+          })
+      };
+    } else {
+      this.setState((state, props) => {
+        return {
+          isPhotoLoading: true,
+          photoLoadingHint: 'File must be an image'
+        }
+      })
     }
   }
 }
