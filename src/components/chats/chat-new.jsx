@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './chat-new.scss';
 
 import { API_CONFIG } from '../../api/api-config';
+import * as validators from '../../utils/validators';
 
 class ChatNew extends Component {
   constructor(props, context) {
@@ -13,12 +14,16 @@ class ChatNew extends Component {
       photoLoadingHint: '',
       isPhotoLoading: false,
       labelFileInputValut: 'Upload photo',
-      photoURL: ''
+      photoURL: '',
+      isChatNameValid: null,
+      isChatNameTouched: false,
+      isSelectedUsersValid: false
     }
     this.renderUsersList = this.renderUsersList.bind(this);
     this.onAddUser = this.onAddUser.bind(this);
     this.setUsersState = this.setUsersState.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
+    this.validateChatName = this.validateChatName.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,7 +35,8 @@ class ChatNew extends Component {
         <div className='modal-window-inner  new-chat-inner'>
           <button className='modal-window-inner__close  chat-icon-close' onClick={() => { this.props.hideNewChat() }}></button>
           <form className='new-chat-form'>
-            <input type='text' className='new-chat-form__input' placeholder='Enter chat name' />
+            <input type='text' className='new-chat-form__input' placeholder='Enter chat name' onBlur={this.validateChatName} />
+            <span className={'new-chat-form__hint' + (this.state.isChatNameValid || !this.state.isChatNameTouched ? ' hidden' : ' ')}>Chat name must be at least 6 characters</span>
 
             <label className='new-chat-form__input  new-chat-form__input--label-file' onChange={(e) => { this.onFileUpload(e) }}>
               {this.state.labelFileInputValut}
@@ -48,12 +54,13 @@ class ChatNew extends Component {
               {this.renderUsersList()}
             </ul>
 
-            <button type='submit' className='new-chat-form__btn'>Create new chat</button>
+            <button type='submit' className='new-chat-form__btn' disabled={!this.state.isChatNameValid || !this.state.isSelectedUsersValid}>Create new chat</button>
           </form>
         </div>
       </div>
     );
   }
+
   renderUsersList() {
     let { users, user } = this.props;
     if (users) {
@@ -74,12 +81,13 @@ class ChatNew extends Component {
     }
   }
 
-  setUsersState(users) {
+  setUsersState(users, isValid) {
     this.setState((state, props) => {
       return {
         newChat: {
           users
-        }
+        },
+        isSelectedUsersValid: isValid
       }
     })
   }
@@ -91,10 +99,12 @@ class ChatNew extends Component {
     selectedEl.classList.toggle('selected');
     if (selectedEl.classList.contains('selected')) {
       users.push(userObj);
-      this.setUsersState(users);
+      this.setUsersState(users, users.length > 0);
+      console.log(users.length > 0)
     } else {
       users.splice(userObj, 1);
-      this.setUsersState(users);
+      this.setUsersState(users, users.length > 0);
+      console.log(users.length > 0)
     }
   }
 
@@ -139,6 +149,16 @@ class ChatNew extends Component {
         }
       })
     }
+  }
+
+  validateChatName(e) {
+    let isValid = validators.validateString(e.target.value, 6);
+    this.setState((state, props) => {
+      return {
+        isChatNameValid: isValid,
+        isChatNameTouched: true
+      }
+    })
   }
 }
 
