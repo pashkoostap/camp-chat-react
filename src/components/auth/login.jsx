@@ -6,7 +6,8 @@ export default class AuthLogin extends Component {
     super(props)
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      isLoginError: false
     }
     this.onLogin = this.onLogin.bind(this);
     this.changeUserName = this.changeUserName.bind(this);
@@ -22,7 +23,7 @@ export default class AuthLogin extends Component {
           placeholder="Username"
           value={this.state.username}
           onChange={this.changeUserName} />
-        <span className="osp-chat-form__hint">Please enter username</span>
+        {/*<span className="osp-chat-form__hint">Please enter username</span>*/}
         <input
           type="password"
           name="password"
@@ -30,15 +31,17 @@ export default class AuthLogin extends Component {
           placeholder="Password"
           value={this.state.password}
           onChange={this.changeUserPass} />
-        <span className="osp-chat-form__hint">Your password must be at least 8 latin characters and digits</span>
+        {/*<span className="osp-chat-form__hint">Your password must be at least 8 latin characters and digits</span>*/}
+        <span className={"osp-chat-form__hint" + (this.state.isLoginError ? ' visible' : ' hidden')}>User not found</span>
 
-        <a href="#" className="osp-chat-form__link  osp-chat-form__link--forgot-pass">Forgot password?</a>
+        {/*<a href="#" className="osp-chat-form__link  osp-chat-form__link--forgot-pass">Forgot password?</a>*/}
 
         <input
           type="submit"
           className="osp-chat-form__submit  osp-chat-form__submit--login"
           value="Login"
-          onClick={this.onLogin} />
+          onClick={this.onLogin}
+          disabled={!this.state.username || !this.state.password} />
       </form>
     )
   }
@@ -62,9 +65,14 @@ export default class AuthLogin extends Component {
     fetch(API_CONFIG.LOGIN, myInit)
       .then((res) => res.json())
       .then((userInfo) => {
-        this.props.initSocket(userInfo.token);
-        this.props.login(userInfo);
-        this.props.changeIsLoggedState();
+        if (userInfo.status == 400) {
+          this.setState({ isLoginError: true })
+        } else {
+          this.setState({ isLoginError: false })
+          this.props.initSocket(userInfo.token);
+          this.props.login(userInfo);
+          this.props.changeIsLoggedState();
+        }
       })
   }
 }

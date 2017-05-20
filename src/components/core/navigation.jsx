@@ -20,7 +20,7 @@ export default class AppNavigation extends Component {
             <a className="user-profile-link">
               <span className="user-profile-link__name">{this.props.user.user !== undefined ? this.props.user.user.username : ''}</span>
               {/*<div className="user-profile-link__photo" style={{ backgroundImage: 'url(assets/img/avatar__1.jpg)' }}></div>*/}
-              <div className="user-profile-link__photo" style={{ backgroundImage: `url(${this.props.user.user.photo})` }}></div>
+              <div className="user-profile-link__photo" style={{ backgroundImage: `url(${this.props.user.user !== undefined ? this.props.user.user.photo : ''})` }}></div>
             </a>
             <button className="log-out  chat-icon-sign-out" onClick={() => { this.props.logout(); this.props.changeIsLoggedState() }}></button>
           </div>
