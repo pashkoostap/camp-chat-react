@@ -4,22 +4,25 @@ import styles from './chat-new.scss';
 import { API_CONFIG } from '../../api/api-config';
 import * as validators from '../../utils/validators';
 
+const inititalState = {
+  users: [],
+  chatname: '',
+  photo: '',
+  photoLoadingHint: '',
+  isPhotoLoading: false,
+  labelFileInputValut: 'Upload photo',
+  isChatNameValid: null,
+  isChatNameTouched: false,
+  isSelectedUsersValid: false,
+  filterValue: '',
+  isChatNameAlreadyUsed: false
+}
+
 class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = {
-      users: [],
-      chatname: '',
-      photo: '',
-      photoLoadingHint: '',
-      isPhotoLoading: false,
-      labelFileInputValut: 'Upload photo',
-      isChatNameValid: null,
-      isChatNameTouched: false,
-      isSelectedUsersValid: false,
-      filterValue: '',
-      isChatNameAlreadyUsed: false
-    }
+    this.state = inititalState;
+
     this.usersList;
     this.renderUsersList = this.renderUsersList.bind(this);
     this.onAddUser = this.onAddUser.bind(this);
@@ -226,21 +229,7 @@ class ChatNew extends Component {
       })
   }
   clearChatForm() {
-    this.setState((state, props) => {
-      return {
-        users: [],
-        chatname: '',
-        photo: '',
-        photoLoadingHint: '',
-        isPhotoLoading: false,
-        labelFileInputValut: 'Upload photo',
-        isChatNameValid: null,
-        isChatNameTouched: false,
-        isSelectedUsersValid: false,
-        filterValue: '',
-        isChatNameAlreadyUsed: false
-      }
-    })
+    this.setState(inititalState)
   }
 }
 

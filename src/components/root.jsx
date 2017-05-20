@@ -64,7 +64,6 @@ class RootComponent extends Component {
     window.socket = io.connect(API_CONFIG.SOCKET);
     window.socket.on('connect', () => {
       window.socket.emit('authenticate', { token: JWT });
-      console.log(window.socket);
     })
     // window.socket.on('message', msg => console.log(msg));
     // window.socket.on('join-room', msg => console.log('join-room', msg));
@@ -83,8 +82,8 @@ class RootComponent extends Component {
     this.props.actions.userLogout(userInfo);
     localStorage.setItem('userInfo', '');
     this.props.history.push('/auth');
+    window.socket.disconnect();
     setTimeout(() => { window.socket = undefined }, 5000)
-
   }
   changeIsLoggedState() {
     this.setState({ isLoggedUser: !this.state.isLoggedUser });

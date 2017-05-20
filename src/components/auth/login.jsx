@@ -23,7 +23,7 @@ export default class AuthLogin extends Component {
           placeholder="Username"
           value={this.state.username}
           onChange={this.changeUserName} />
-        {/*<span className="osp-chat-form__hint">Please enter username</span>*/}
+      {/*<span className="osp-chat-form__hint">Please enter username</span>*/}
         <input
           type="password"
           name="password"

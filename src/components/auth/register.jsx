@@ -2,28 +2,51 @@ import React, { PropTypes } from 'react';
 import { API_CONFIG } from '../../api/api-config';
 import * as validators from '../../utils/validators';
 
+const initialState = {
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  photo: '',
+  photoLoadingHint: '',
+  isPhotoLoading: false,
+  labelFileInputValut: 'Upload photo',
+  isUserNameValid: null,
+  isUserNameTouched: false,
+  isUserEmailValid: null,
+  isUserEmailTouched: false,
+  isUserPasswordValid: null,
+  isUserPasswordTouched: false,
+  isUserConfirmedPasswordValid: null,
+  isUserConfirmedPasswordTouched: false,
+  isRegisterHintVisible: null,
+  registerHint: 'This username or email is already used'
+}
+
 class AuthRegister extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hideHints: true,
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      photo: '',
-      photoLoadingHint: '',
-      isPhotoLoading: false,
-      labelFileInputValut: 'Upload photo',
-      isUserNameValid: null,
-      isUserNameTouched: false,
-      isUserEmailValid: null,
-      isUserEmailTouched: false,
-      isUserPasswordValid: null,
-      isUserPasswordTouched: false,
-      isUserConfirmedPasswordValid: null,
-      isUserConfirmedPasswordTouched: false,
-    }
+    // this.state = {
+    //   username: '',
+    //   email: '',
+    //   password: '',
+    //   confirmPassword: '',
+    //   photo: '',
+    //   photoLoadingHint: '',
+    //   isPhotoLoading: false,
+    //   labelFileInputValut: 'Upload photo',
+    //   isUserNameValid: null,
+    //   isUserNameTouched: false,
+    //   isUserEmailValid: null,
+    //   isUserEmailTouched: false,
+    //   isUserPasswordValid: null,
+    //   isUserPasswordTouched: false,
+    //   isUserConfirmedPasswordValid: null,
+    //   isUserConfirmedPasswordTouched: false,
+    //   isRegisterHintVisible: null,
+    //   registerHint: 'This username or email is already used'
+    // }
+    this.state = initialState;
     this.setInputValue = this.setInputValue.bind(this);
     this.signUp = this.signUp.bind(this);
     this.onFileUpload = this.onFileUpload.bind(this);
@@ -76,14 +99,17 @@ class AuthRegister extends React.Component {
           className="osp-chat-form__input"
           value={this.state.confirmPassword}
           name="confirmPassword"
-          onChange={(e)=>{this.setInputValue(e); this.validateUserConfirmedPassword(e)}}
+          onChange={(e) => { this.setInputValue(e); this.validateUserConfirmedPassword(e) }}
           placeholder="Confirm password" />
         <span className={"osp-chat-form__hint " + (this.state.isUserConfirmedPasswordValid || !this.state.isUserConfirmedPasswordTouched ? ' hidden' : ' visible')}>The passwords are not identical</span>
+
+        <span className={'new-chat-form__hint' + (this.state.isRegisterHintVisible ? ' visible' : ' hidden')}>{this.state.registerHint}</span>
 
         <input type="submit"
           className="osp-chat-form__submit  osp-chat-form__submit--sign-in"
           onClick={this.signUp}
-          value="Register" />
+          value="Register"
+          disabled={!this.state.isUserNameValid || !this.state.isUserEmailValid || !this.state.isUserEmailValid || !this.state.isUserConfirmedPasswordValid} />
       </form>
     );
   }
@@ -172,14 +198,25 @@ class AuthRegister extends React.Component {
       body: JSON.stringify({
         username: this.state.username,
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        photo: this.state.photo
       })
     }
     fetch(API_CONFIG.SIGNUP, myInit)
-      .then(() => {
-        console.log('registered new user');
-        this.props.switchToLogin();
-      });
+      .then((res) => res.json())
+      .then(res => {
+        if (res.status == 400) {
+          this.setState((state, props) => {
+            return {
+              isRegisterHintVisible: true,
+              registerHint: 'This username or email is already used'
+            }
+          })
+        } else {
+          this.setState(initialState)
+          this.props.switchToLogin();
+        }
+      })
   }
 }
 

@@ -50,7 +50,7 @@ class Auth extends React.Component {
     }
   }
   switchToLogin() {
-    this.setState({ isActiveLoginMode: true });
+    this.setState({ isActiveLoginMode: true, lastClickedButton: 'osp-chat-form-nav__btn--login' });
   }
 }
 
