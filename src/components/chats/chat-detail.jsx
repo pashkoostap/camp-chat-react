@@ -17,7 +17,7 @@ class ChatDetail extends Component {
       isMessagesLoading: false,
       selectedChat: '',
       spinnerVisible: false,
-      connectedUsers: null
+      connectedUsers: window.connectedUsers || null
     }
     this.subscribeToSocketEvents = this.subscribeToSocketEvents.bind(this);
     this.updateConnectedUsers = this.updateConnectedUsers.bind(this);
@@ -48,7 +48,8 @@ class ChatDetail extends Component {
   }
 
   updateConnectedUsers(connectedUsers) {
-    this.setState((state, props) => { return { connectedUsers } })
+    this.setState((state, props) => { return { connectedUsers } });
+    window.connectedUsers = connectedUsers;
   }
 
   subscribeToSocketEvents(socket) {
@@ -86,8 +87,6 @@ class ChatDetail extends Component {
   }
 
   componentDidMount() {
-    console.log('did mount')
-    console.log(this.props.socket())
     this.subscribeToSocketEvents(this.props.socket())
   }
 

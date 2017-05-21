@@ -33,7 +33,6 @@ class ChatUsers extends React.Component {
 
   renderUsers() {
     let { chat, connectedUsers } = this.props;
-    console.log(connectedUsers)
     if (chat) {
       return chat.users.map(user => {
         this.isUserOnline(user, connectedUsers)
