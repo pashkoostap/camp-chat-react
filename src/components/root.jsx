@@ -85,7 +85,9 @@ class RootComponent extends Component {
     localStorage.setItem('userInfo', '');
     this.props.history.push('/auth');
     window.socket.disconnect();
-    setTimeout(() => { window.socket = undefined }, 5000)
+    window.socket = undefined; 
+    window.connectedUsers = null
+    setTimeout(() => { window.socket = undefined; window.connectedUsers = null }, 3000)
   }
 
   changeIsLoggedState() {
