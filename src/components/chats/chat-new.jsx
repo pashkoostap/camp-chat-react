@@ -4,24 +4,22 @@ import styles from './chat-new.scss';
 import { API_CONFIG } from '../../api/api-config';
 import * as validators from '../../utils/validators';
 
-const inititalState = {
-  users: [],
-  chatname: '',
-  photo: '',
-  photoLoadingHint: '',
-  isPhotoLoading: false,
-  labelFileInputValut: 'Upload photo',
-  isChatNameValid: null,
-  isChatNameTouched: false,
-  isSelectedUsersValid: false,
-  filterValue: '',
-  isChatNameAlreadyUsed: false
-}
-
 class ChatNew extends Component {
   constructor(props, context) {
     super(props, context);
-    this.state = inititalState;
+    this.state = {
+      users: [],
+      chatname: '',
+      photo: '',
+      photoLoadingHint: '',
+      isPhotoLoading: false,
+      labelFileInputValut: 'Upload photo',
+      isChatNameValid: null,
+      isChatNameTouched: false,
+      isSelectedUsersValid: false,
+      filterValue: '',
+      isChatNameAlreadyUsed: false
+    };
 
     this.usersList;
     this.renderUsersList = this.renderUsersList.bind(this);
@@ -32,9 +30,6 @@ class ChatNew extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.clearChatForm = this.clearChatForm.bind(this);
     this.clearUsersList = this.clearUsersList.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
   }
 
   render() {
@@ -123,7 +118,13 @@ class ChatNew extends Component {
   }
 
   onAddUser(e, user) {
-    let selectedEl = e.target;
+    let targetEl = e.target;
+    let selectedEl;
+    if (targetEl.classList.contains('new-chat-user')) {
+      selectedEl = targetEl;
+    } else {
+      selectedEl = targetEl.parentElement;
+    }
     let userObj = { username: user.username };
     let users = this.state.users;
     selectedEl.classList.toggle('selected');
@@ -229,7 +230,21 @@ class ChatNew extends Component {
       })
   }
   clearChatForm() {
-    this.setState(inititalState)
+    this.setState((state, props) => {
+      return {
+        users: [],
+        chatname: '',
+        photo: '',
+        photoLoadingHint: '',
+        isPhotoLoading: false,
+        labelFileInputValut: 'Upload photo',
+        isChatNameValid: null,
+        isChatNameTouched: false,
+        isSelectedUsersValid: false,
+        filterValue: '',
+        isChatNameAlreadyUsed: false
+      }
+    })
   }
 }
 

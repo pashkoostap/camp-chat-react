@@ -37,7 +37,7 @@ export default class MessageItem extends Component {
   }
   detectContent(text) {
     let textArr = text.split(' ');
-    let imagePattern = /\.(jpeg|jpg|gif|png|svg|bmp|tiff)/g;
+    let imagePattern = /\.(jpeg|jpg|gif|png|svg|bmp|tiff)/gi;
     let resultText = '';
     let resultImages = '';
     textArr.forEach(str => {
