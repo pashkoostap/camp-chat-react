@@ -64,7 +64,7 @@ class ChatDetail extends Component {
 
   componentWillReceiveProps(nextProps) {
     let { selectedChat, socket } = nextProps;
-    if (selectedChat && selectedChat !== this.state.selectedChat) {
+    if (selectedChat && selectedChat != this.state.selectedChat) {
       if (!this.state.isMessagesLoading) {
         this.setState((state, props) => {
           return {
@@ -86,6 +86,8 @@ class ChatDetail extends Component {
   }
 
   componentDidMount() {
+    console.log('did mount')
+    console.log(this.props.socket())
     this.subscribeToSocketEvents(this.props.socket())
   }
 

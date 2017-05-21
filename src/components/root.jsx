@@ -25,6 +25,7 @@ class RootComponent extends Component {
     this.initSocket = this.initSocket.bind(this);
     this.getSocket = this.getSocket.bind(this);
   }
+  
   render() {
     return (
       <div className="app-wrap">
@@ -55,29 +56,30 @@ class RootComponent extends Component {
       </div>
     )
   }
+
   componentDidMount() {
     if (this.state.isLoggedUser && window.socket == undefined) {
       this.initSocket(this.props.userInfo.token);
     }
   }
+
   initSocket(JWT) {
     window.socket = io.connect(API_CONFIG.SOCKET);
     window.socket.on('connect', () => {
       window.socket.emit('authenticate', { token: JWT });
     })
-    // window.socket.on('message', msg => console.log(msg));
-    // window.socket.on('join-room', msg => console.log('join-room', msg));
-    // window.socket.on('leave-room', msg => console.log('leave-room', msg));
-    // window.socket.on('new-chat', chat => console.log('new-chat', chat));
   }
+
   getSocket() {
     return window.socket;
   }
+
   onUserLogin(userInfo) {
     this.props.actions.userLogin(userInfo);
     localStorage.setItem('userInfo', JSON.stringify(userInfo));
     this.props.history.push('/chat');
   }
+
   onUserLogout(userInfo) {
     this.props.actions.userLogout(userInfo);
     localStorage.setItem('userInfo', '');
@@ -85,6 +87,7 @@ class RootComponent extends Component {
     window.socket.disconnect();
     setTimeout(() => { window.socket = undefined }, 5000)
   }
+
   changeIsLoggedState() {
     this.setState({ isLoggedUser: !this.state.isLoggedUser });
   }

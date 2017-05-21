@@ -33,12 +33,12 @@ class ChatUsers extends React.Component {
 
   renderUsers() {
     let { chat, connectedUsers } = this.props;
+    console.log(connectedUsers)
     if (chat) {
       return chat.users.map(user => {
         this.isUserOnline(user, connectedUsers)
         return (
           <li className='app-chat-users-list__item' key={user._id} >
-            {/*<div className='app-chat-users-list__photo' style={{ backgroundImage: `url('assets/img/avatar__4.jpg')` }}></div>*/}
             <div className='app-chat-users-list__photo' style={{ backgroundImage: `url(${user.photo})` }}></div>
             {this.isUserOnline(user, connectedUsers)}
             <span className='app-chat-users-list__name'>{user.username}</span>

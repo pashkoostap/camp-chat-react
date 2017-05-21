@@ -15,7 +15,6 @@ export default class ChatList extends Component {
       chats.forEach(chat => {
         if (this.state.joinedChats.length == 0) {
           this.props.socket().emit('join-room', chat._id);
-          this.setState((state, props) => { return { joinedChats: ['dasds'] } })
         }
       })
     }
@@ -34,7 +33,8 @@ export default class ChatList extends Component {
         key={chat._id} 
         chat={chat} 
         selectChat={this.props.selectChat}
-        selectedChat={this.props.selectedChat} />
+        selectedChat={this.props.selectedChat}
+        socket={this.props.socket} />
     })
   }
   render() {
