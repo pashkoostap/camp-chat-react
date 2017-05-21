@@ -13,6 +13,7 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const LOAD_CHATS = 'LOAD_CHATS';
 export const RESET_CHATS = 'RESET_CHATS';
 export const NEW_CHAT = 'NEW_CHAT';
+export const LEAVE_CHAT = 'LEAVE_CHAT';
 // USERS
 export const LOAD_USERS = 'LOAD_USERS';
 export const RESET_USERS = 'RESET_USERS';

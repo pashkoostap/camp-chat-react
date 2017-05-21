@@ -29,7 +29,9 @@ class ChatDetail extends Component {
         <ChatInfo
           visible={this.state.selectedChat}
           chat={this.props.chat}
-          connectedUsers={this.state.connectedUsers} />
+          connectedUsers={this.state.connectedUsers}
+          user={this.props.userInfo}
+          leaveChat={this.props.leaveChat} />
         <h1 className={"ct-chat-detail__title " + (this.state.selectedChat ? "hidden" : "visible")}>Please select chat</h1>
         <MessagesList
           spinnerVisible={this.state.spinnerVisible}

@@ -8,6 +8,8 @@ const chatsReducer = (state = [], action) => {
       return [...state, action.chat];
     case types.RESET_CHATS:
       return action.chats;
+    case types.LEAVE_CHAT:
+      return state.filter(chat => chat._id != action.chatID);
     default:
       return state;
   }

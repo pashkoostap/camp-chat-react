@@ -30,3 +30,10 @@ export function newChat(chat) {
     chat
   }
 }
+
+export function leaveChat(chatID) {
+  return {
+    type: types.LEAVE_CHAT,
+    chatID
+  }
+}

@@ -33,6 +33,7 @@ class ChatsComponent extends Component {
     this.showNewChatWindow = this.showNewChatWindow.bind(this);
     this.hideNewChatWindow = this.hideNewChatWindow.bind(this);
     this.emitNewChat = this.emitNewChat.bind(this);
+    this.leaveChat = this.leaveChat.bind(this);
   }
   render() {
     return (
@@ -59,7 +60,8 @@ class ChatsComponent extends Component {
             <ChatDetail
               socket={this.props.socket}
               selectedChat={this.state.selectedChat}
-              chat={this.state.activeChat} />
+              chat={this.state.activeChat}
+              leaveChat={this.leaveChat} />
           </div>
         </div>
         <ChatNew
@@ -136,6 +138,10 @@ class ChatsComponent extends Component {
   }
   emitNewChat(chat) {
     this.props.socket().emit('new-chat', chat);
+  }
+  leaveChat(chatID, callback) {
+    callback(this.props.history);
+    this.props.actions.leaveChat(chatID);
   }
   componentWillUnmount() {
     this.props.actions.resetChats();
