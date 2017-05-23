@@ -7,7 +7,8 @@
 
 .new-chat-title {
     text-align: center;
-    margin: 15px 0px;
+    margin: 0px;
+    margin-bottom: 15px;
 }
 .new-chat-form {
     display: flex;
@@ -125,12 +126,9 @@
     border-radius: 20px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    max-height: 243px;
+    max-height: 182px;
     min-height: 50px;
     background-color: #ededfa;
-    @media (max-width: 320px) {
-        max-height: 182px;
-    }
 }
 .new-chat-user {
     display: flex;

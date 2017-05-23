@@ -37,6 +37,7 @@ class ChatNew extends Component {
       <div className={'modal-window-wrap' + (this.props.visible ? ' visible' : ' hidden')}>
         <div className='modal-window-inner  new-chat-inner'>
           <button className='modal-window-inner__close  chat-icon-close' onClick={() => { this.props.hideNewChat() }}></button>
+          <h1 className="new-chat-title">Create new chat</h1>
           <form className='new-chat-form'>
             <input
               type='text'
