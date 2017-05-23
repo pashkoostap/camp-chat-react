@@ -38,7 +38,7 @@ class ChatInfo extends React.Component {
           {this.renderAttendeesList(chat)}
         </ul >
         <span className='chat-info__chat-name'>{chat ? chat.chatname : ''}</span>
-        <div className={'chat-info-search ' + (this.state.searchFieldVisible ? ' visible' : ' ')} >
+        {/*<div className={'chat-info-search ' + (this.state.searchFieldVisible ? ' visible' : ' ')} >
           <button
             type='button'
             className='chat-info-search__btn  chat-btn  chat-icon-search'
@@ -47,7 +47,7 @@ class ChatInfo extends React.Component {
             className='chat-info-search__input'
             placeholder='Search...'
             name='search' />
-        </div>
+        </div>*/}
         <button
           type='button'
           className='chat-info__leave  chat-btn  chat-icon-sign-out'

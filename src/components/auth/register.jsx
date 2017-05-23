@@ -10,7 +10,7 @@ const initialState = {
   photo: '',
   photoLoadingHint: '',
   isPhotoLoading: false,
-  labelFileInputValut: 'Upload photo',
+  labelFileInputValue: 'Upload photo',
   isUserNameValid: null,
   isUserNameTouched: false,
   isUserEmailValid: null,
@@ -26,26 +26,6 @@ const initialState = {
 class AuthRegister extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   username: '',
-    //   email: '',
-    //   password: '',
-    //   confirmPassword: '',
-    //   photo: '',
-    //   photoLoadingHint: '',
-    //   isPhotoLoading: false,
-    //   labelFileInputValut: 'Upload photo',
-    //   isUserNameValid: null,
-    //   isUserNameTouched: false,
-    //   isUserEmailValid: null,
-    //   isUserEmailTouched: false,
-    //   isUserPasswordValid: null,
-    //   isUserPasswordTouched: false,
-    //   isUserConfirmedPasswordValid: null,
-    //   isUserConfirmedPasswordTouched: false,
-    //   isRegisterHintVisible: null,
-    //   registerHint: 'This username or email is already used'
-    // }
     this.state = initialState;
     this.setInputValue = this.setInputValue.bind(this);
     this.signUp = this.signUp.bind(this);
@@ -66,7 +46,7 @@ class AuthRegister extends React.Component {
           onChange={this.setInputValue}
           onBlur={this.validateUserName}
           placeholder="Username" />
-        <span className={"osp-chat-form__hint " + (this.state.isUserNameValid || !this.state.isUserNameTouched ? ' hidden' : ' visible')}>Your name must be at least 6 latin characters and digits</span>
+        <span className={"osp-chat-form__hint " + (this.state.isUserNameValid || !this.state.isUserNameTouched ? ' hidden' : ' visible')}>Username must contain at least 6 latin letters or digits</span>
 
         <input
           type="text"
@@ -79,7 +59,7 @@ class AuthRegister extends React.Component {
         <span className={"osp-chat-form__hint " + (this.state.isUserEmailValid || !this.state.isUserEmailTouched ? ' hidden' : ' visible')}>Please enter valid email</span>
 
         <label className='new-chat-form__input  new-chat-form__input--label-file' onChange={(e) => { this.onFileUpload(e) }}>
-          {this.state.labelFileInputValut}
+          {this.state.labelFileInputValue}
           <input type='file' className='new-chat-form__input  new-chat-form__input--file' />
         </label>
         <span className='new-chat-form__hint'>{this.state.photoLoadingHint}</span>
@@ -92,7 +72,7 @@ class AuthRegister extends React.Component {
           onChange={this.setInputValue}
           onBlur={this.validateUserPassword}
           placeholder="Enter password" />
-        <span className={"osp-chat-form__hint " + (this.state.isUserPasswordValid || !this.state.isUserPasswordTouched ? ' hidden' : ' visible')}>Your password must be at least 6 latin characters and digits</span>
+        <span className={"osp-chat-form__hint " + (this.state.isUserPasswordValid || !this.state.isUserPasswordTouched ? ' hidden' : ' visible')}>Your password must contain at least 6 latin letters or digits</span>
 
         <input
           type="password"
@@ -151,7 +131,7 @@ class AuthRegister extends React.Component {
         return {
           isPhotoLoading: true,
           photoLoadingHint: 'Photo is uploading now',
-          labelFileInputValut: file.name
+          labelFileInputValue: file.name
         }
       })
       let reader = new FileReader();

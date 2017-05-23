@@ -23,7 +23,6 @@ export default class AuthLogin extends Component {
           placeholder="Username"
           value={this.state.username}
           onChange={this.changeUserName} />
-      {/*<span className="osp-chat-form__hint">Please enter username</span>*/}
         <input
           type="password"
           name="password"
@@ -31,10 +30,7 @@ export default class AuthLogin extends Component {
           placeholder="Password"
           value={this.state.password}
           onChange={this.changeUserPass} />
-        {/*<span className="osp-chat-form__hint">Your password must be at least 8 latin characters and digits</span>*/}
         <span className={"osp-chat-form__hint" + (this.state.isLoginError ? ' visible' : ' hidden')}>User not found</span>
-
-        {/*<a href="#" className="osp-chat-form__link  osp-chat-form__link--forgot-pass">Forgot password?</a>*/}
 
         <input
           type="submit"

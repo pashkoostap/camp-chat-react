@@ -9,7 +9,7 @@ class HomePage extends Component {
       <div className='ct-home'>
         <div className='intro-wrap'>
           <div className='intro-wrap__photo'></div>
-          <img src="assets/img/intro-video.gif" className='intro-wrap__video' alt="" />
+          <img src="assets/img/intro-video-new.gif" className='intro-wrap__video' alt="" />
         </div>
       </div>
     )

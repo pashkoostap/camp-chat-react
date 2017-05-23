@@ -32,10 +32,6 @@ export default class ChatNav extends Component {
           <li className='osp-chat-menu__item' onClick={() => { this.props.showNewChat() }}>
             <a >New chat</a>
           </li >
-          <li className='osp-chat-menu__item  osp-chat-menu__item--divider'></li>
-          <li className='osp-chat-menu__item'>
-            <a>Menu item</a>
-          </li >
         </ul >
       </nav >
     )
